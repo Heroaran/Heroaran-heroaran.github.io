@@ -61,7 +61,7 @@
             "Scroll for Belt for DEX 100%",
             "Dark Mesana"
         ],
-        "location": "Victoria Road: Thicket Around the Beach III"
+        "region": "Victoria Road: Thicket Around the Beach III"
     },
     {
         "name": "King Clang",
@@ -116,7 +116,7 @@
             "Black Schult",
             "Black Basile Boots"
         ],
-        "location": "Florina Road: Hot Sand"
+        "region": "Florina Road: Hot Sand"
     },
     {
         "name": "Faust",
@@ -172,7 +172,7 @@
             "Scroll for Shield for STR 60%",
             "Scroll for Shield for HP 10%"
         ],
-        "location": "Hidden Street: Forest of Evil II"
+        "region": "Hidden Street: Forest of Evil II"
     },
     {
         "name": "Dyle",
@@ -220,7 +220,7 @@
             "Scroll for Spear for Accuracy 60%",
             "Scroll for Knuckle for Accuracy 60%"
         ],
-        "location": "Warning Street: Dangerous Croko II"
+        "region": "Warning Street: Dangerous Croko II"
     },
     {
         "name": "Stumpy",
@@ -268,7 +268,7 @@
             "Scroll for Spear for Accuracy 60%",
             "Scroll for Knuckle for Accuracy 60%"
         ],
-        "location": "Victoria Road: East Rocky Mountain V"
+        "region": "Victoria Road: East Rocky Mountain V"
     },
     {
         "name": "Shade",
@@ -301,7 +301,7 @@
             "Dark Arten",
             "Dark Cleave"
         ],
-        "location": "Kerning City Subway: Line 1 <Area 4>"
+        "region": "Kerning City Subway: Line 1 <Area 4>"
     },
     {
         "name": "Mushmom",
@@ -345,7 +345,7 @@
             "Scroll for Helmet for INT 100%",
             "Scroll for One-Handed BW for Accuracy 60%"
         ],
-        "location": "Hidden Street: Someone Else's House"
+        "region": "Hidden Street: Someone Else's House"
     },
     {
         "name": "Zombie Mushmom",
@@ -387,7 +387,7 @@
             "Scroll for Topwear for HP 10%",
             "Scroll for One-Handed Sword for Accuracy 10%"
         ],
-        "location": "Dungeon: The Grave of Mushmom"
+        "region": "Dungeon: The Grave of Mushmom"
     },
     {
         "name": "Jr Balrog",
@@ -444,7 +444,7 @@
             "Scroll for Knuckle for ATT 60%",
             "Scroll for Gun for ATT 60%"
         ],
-        "location": "Dungeon: The Cursed Sanctuary"
+        "region": "Dungeon: The Cursed Sanctuary"
     },
         {
         "name": "Snow Witch",
@@ -481,7 +481,7 @@
       "Burning Hell",
       "Ice Tear"
         ],
-        "location": "El Nath: Icy Cold Field"
+        "region": "El Nath: Icy Cold Field"
     },
     {
         "name": "Riche",
@@ -528,7 +528,7 @@
       "Hammer",
       "Daiwa Sword"
         ],
-        "location": "El Nath: Forest of Dead Trees"
+        "region": "El Nath: Forest of Dead Trees"
     },
         {
         "name": "Snowman",
@@ -593,7 +593,7 @@
       "Scroll for Shield for HP 60%",
       "Scroll for Spear for Accuracy 10%"
         ],
-        "location": "Hidden Street: Valley of Snowman"
+        "region": "Hidden Street: Valley of Snowman"
     },
                 {
         "name": "Timer",
@@ -654,7 +654,7 @@
       "Newspaper Hat",
       "Pico Hammer"
         ],
-        "location": "Ludibrium: Lost Time <1>"
+        "region": "Ludibrium: Lost Time <1>"
     },
     {
         "name": "Zeno",
@@ -700,7 +700,7 @@
       "Scroll for Shield for LUK 10%",
       "Scroll for One-Handed BW for Accuracy 10%"
         ],
-        "location": "Hidden Street: Gray's Prairie"
+        "region": "Hidden Street: Gray's Prairie"
     },
     {
         "name": "Master Dummy",
@@ -741,7 +741,7 @@
       "Newspaper Sword",
       "Bamboo Sword"
         ],
-        "location": "Mu Lung: Practice Field: Advanced Level"
+        "region": "Mu Lung: Practice Field: Advanced Level"
     },
         {
         "name": "Giant Bellflower Root",
@@ -777,7 +777,7 @@
       "Scroll for Pendant for STR 60%",
       "Scroll for Pendant for INT 60%"
         ],
-        "location": "100 Year Old Herb Garden"
+        "region": "100 Year Old Herb Garden"
     },
             {
         "name": "Tae Roon",
@@ -829,7 +829,7 @@
       "Scroll for Spear for Accuracy 60%",
       "Scroll for Pole Arm for Accuracy 60%"
         ],
-        "location": "Mu Lung: Territory of Wandering Bear"
+        "region": "Mu Lung: Territory of Wandering Bear"
     },
     {
         "name": "King Sage Cat",
@@ -881,7 +881,7 @@
       "Scroll for Bottomwear for Jump 10%",
       "Scroll for Pole Arm for Accuracy 10%"
         ],
-        "location": "Mu Lung: Goblin Forest 2"
+        "region": "Mu Lung: Goblin Forest 2"
     },
         {
         "name": "Giant Centipede",
@@ -949,7 +949,7 @@
       "Scroll for Cape for Weapon Def 60%",
       "Scroll for Cape for Magic Def 60%"
         ],
-        "location": ""
+        "region": ""
     },
             {
         "name": "Bamboo Warrior",
@@ -988,7 +988,7 @@
       "White Potion",
       "Mana Elixir"
         ],
-        "location": "Zipangu: A Night in the Forest"
+        "region": "Zipangu: A Night in the Forest"
     },
     {
         "name": "Blue Mushmom",
@@ -1038,7 +1038,7 @@
       "Chocolate Cake",
       "Fruit Cake"
         ],
-        "location": "Zipangu: Hall of Mushroom"
+        "region": "Zipangu: Hall of Mushroom"
     },
         {
         "name": "Pianus Left",
@@ -1108,7 +1108,7 @@
       "[Mastery Book], Battleship Torpedo 30",
       "[Mastery Book], Bullseye 20"
         ],
-        "location": "Aqua Road: The Cave of Pianus"
+        "region": "Aqua Road: The Cave of Pianus"
     },
      {
         "name": "Pianus Right",
@@ -1178,7 +1178,7 @@
       "[Mastery Book], Battleship Torpedo 30",
       "[Mastery Book], Bullseye 20"
         ],
-        "location": "Aqua Road: The Cave of Pianus"
+        "region": "Aqua Road: The Cave of Pianus"
     },
     {
         "name": "Deo",
@@ -1226,7 +1226,7 @@
           "Red-Hearted Earrings",
           "Flaming Katana"
         ],
-        "location": "Hidden Street: Royal Cactus Desert"
+        "region": "Hidden Street: Royal Cactus Desert"
     },
     {
         "name": "Rurumo",
@@ -1261,7 +1261,7 @@
           "Scroll for Pendant for STR 60%",
           "Scroll for Pendant for INT 60%"
         ],
-        "location": "Alcadno Research Institute: Lab - Area B-3"
+        "region": "Alcadno Research Institute: Lab - Area B-3"
     },
     {
         "name": "Security Camera",
@@ -1306,7 +1306,7 @@
           "Scroll for Gloves for HP 10%",
           "Scroll for One-Handed Sword for Accuracy 10%"
         ],
-        "location": "Hidden Street: Authorized Personnel Only"
+        "region": "Hidden Street: Authorized Personnel Only"
     },
     {
         "name": "Deet and Roi",
@@ -1348,7 +1348,7 @@
           "Scroll for Cape for Magic Def 60%",
           "Scroll for Earring for DEX 60%"
         ],
-        "location": "Alcadno Research Institute: Lab - Area C-3 "
+        "region": "Alcadno Research Institute: Lab - Area C-3 "
     },
     {
         "name": "Kimera",
@@ -1399,7 +1399,7 @@
           "Scroll for Shield for STR 60%",
           "Gold mesos bag"
         ],
-        "location": "Hidden Street: Lab - Secret Basement Path"
+        "region": "Hidden Street: Lab - Secret Basement Path"
     },
     {
         "name": "Manon",
@@ -1470,7 +1470,7 @@
           "Scroll for Spear for ATT 60%",
           "Scroll for Two-Handed BW for ATT 60%"
         ],
-        "location": "Leafre: Manon's Forest"
+        "region": "Leafre: Manon's Forest"
     },
     {
         "name": "Griffey",
@@ -1539,7 +1539,7 @@
           "Scroll for Bottomwear for DEF 10%",
           "Scroll for Shoes for DEX 10%"
         ],
-        "location": "Leafre: Griffey Forest"
+        "region": "Leafre: Griffey Forest"
     },
     {
         "name": "Leviathan",
@@ -1590,7 +1590,7 @@
           "King Cent",
           "Concerto"
         ],
-        "location": "Hidden Street: Leviathan's Canyon"
+        "region": "Hidden Street: Leviathan's Canyon"
     },     
     {
         "name": "Elliza",
@@ -1632,7 +1632,7 @@
           "Purple Osfa Suit",
           "Dark Imperial"
         ],
-        "location": "Orbis - Sky Stairs 2"
+        "region": "Orbis - Sky Stairs 2"
     },     
     {
         "name": "Papulatus",
@@ -1726,7 +1726,7 @@
 			"Scroll for Two-handed Axe for ATT 60%",
 			"Scroll for Two-handed Axe for ATT 10%"
         ],
-        "location": "Ludibrium: Origin of the Clock Tower"
+        "region": "Ludibrium: Origin of the Clock Tower"
     },     
     {
         "name": "Zakum",
@@ -1788,7 +1788,7 @@
 			"Zakum's Ring Box",
 			"Sunset Dew"
         ],
-        "location": "Last Mission: Zakum's Altar"
+        "region": "Last Mission: Zakum's Altar"
     },
 {
         "name": "락스피릿",
@@ -1861,9 +1861,10 @@
 			"일비 표창",
 			"화비 표창"
         ],
-        "location": "타이베이101, 대만"
+        "region": "타이베이101, 대만"
     }
 ]
+
 
 
 
