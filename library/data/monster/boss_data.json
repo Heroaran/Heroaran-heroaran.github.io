@@ -1802,7 +1802,6 @@
         "required_accuracy": 202,
         "accuracy_level_decrease": 7.33,
         "exp": 180000,
-        ],
         "drops": [
             "금색 메소 주머니",
             "금색 메소 주머니",
@@ -1865,6 +1864,7 @@
         "location": "타이베이101, 대만"
     }
 ]
+
 
 
 
