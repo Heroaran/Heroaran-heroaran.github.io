@@ -1794,10 +1794,14 @@
         "name": "락스피릿",
         "level": 100,
         "hp": 1480000,
-        "modifiers": "X",
-        "respawn_time": [
-            120,
-            420
+        "modifiers": "x",
+        "respawn_time": [120,420],
+		"weapon_def": 920,
+        "magic_def": 750,
+        "avoidability": 55,
+        "required_accuracy": 202,
+        "accuracy_level_decrease": 7.33,
+        "exp": 180000,
         ],
         "drops": [
             "금색 메소 주머니",
@@ -1861,5 +1865,6 @@
         "location": "타이베이101, 대만"
     }
 ]
+
 
 
