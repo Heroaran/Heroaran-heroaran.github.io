@@ -14204,7 +14204,7 @@
     "avoidability": 15,
     "required_accuracy": 55,
     "accuracy_level_decrease": 2,
-    "exp": 530 "변신 전 30 + 변신 후 500",
+    "exp": 530,
     "meso_range": ["미상"],
     "modifiers": "X",
     "drops": [
@@ -14245,7 +14245,7 @@
     "avoidability": 15,
     "required_accuracy": 55,
     "accuracy_level_decrease": 2,
-    "exp": 425 "변신 전 25 + 변신 후 400",
+    "exp": 425,
     "meso_range": ["미상"],
     "modifiers": "X",
     "drops": [
@@ -14287,7 +14287,7 @@
     "avoidability": 20,
     "required_accuracy": 74,
     "accuracy_level_decrease": 2.67,
-    "exp": 540 변신 전 40 + 변신 후 500,
+    "exp": 540,
     "meso_range": ["미상"],
     "modifiers": "X",
     "drops": [
@@ -14613,6 +14613,7 @@
     "region": "타이베이 101, 대만"
  }
 ]
+
 
 
 
