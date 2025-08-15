@@ -383,7 +383,7 @@
         ${monster.accuracy_level_decrease != null
           ? `(몬스터 레벨보다 1레벨 낮을 때 마다 +${monster.accuracy_level_decrease})`
           : ''}
-        </p>
+        </p>`}
 
         <div style="margin-top:10px;">
           ${(monster.drops || []).map(drop => `
@@ -559,4 +559,5 @@
   </script>
 </body>
 </html>
+
 
