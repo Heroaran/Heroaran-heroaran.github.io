@@ -3,13 +3,6 @@
     "name": "마노",
     "level": 20,
     "hp": 10000,
-    "mp": null,
-    "weapon_def": 20,
-    "magic_def": 30,
-    "avoidability": 8,
-    "required_accuracy": 30,
-    "accuracy_level_decrease": 1.07,
-    "exp": null,
     "respawn_time": [23, 30],
     "modifiers": "X",
     "drops": [
@@ -71,13 +64,6 @@
   "name": "킹크랑",
   "level": 55,
   "hp": 500000,
-  "mp": null,
-  "weapon_def": 120,
-  "magic_def": 120,
-  "avoidability": 20,
-  "required_accuracy": 74,
-  "accuracy_level_decrease": 2.67,
-  "exp": null,
   "respawn_time": [45, 60],
   "modifiers": "X",
   "drops": [
@@ -117,13 +103,6 @@
   "name": "파우스트",
   "level": 55,
   "hp": 350000,
-  "mp": null,
-  "weapon_def": 110,
-  "magic_def": 150,
-  "avoidability": 20,
-  "required_accuracy": 74,
-  "accuracy_level_decrease": 2.67,
-  "exp": null,
   "respawn_time": [38, 45],
   "modifiers": "X",
   "drops": [
@@ -161,13 +140,6 @@
   "name": "다일",
   "level": 65,
   "hp": 684000,
-  "mp": null,
-  "weapon_def": 190,
-  "magic_def": 220,
-  "avoidability": 30,
-  "required_accuracy": 110,
-  "accuracy_level_decrease": 4,
-  "exp": null,
   "respawn_time": [90, 105],
   "modifiers": "X",
   "drops": [
@@ -205,13 +177,6 @@
   "name": "스텀피",
   "level": 35,
   "hp": 70000,
-  "mp": null,
-  "weapon_def": 50,
-  "magic_def": 70,
-  "avoidability": 12,
-  "required_accuracy": 44,
-  "accuracy_level_decrease": 1.6,
-  "exp": null,
   "respawn_time": [23, 30],
   "modifiers": "X",
   "drops": [
@@ -254,13 +219,6 @@
   "name": "셰이드",
   "level": 48,
   "hp": 130000,
-  "mp": null,
-  "weapon_def": 150,
-  "magic_def": 180,
-  "avoidability": null,
-  "required_accuracy": null,
-  "accuracy_level_decrease": null,
-  "exp": null,
   "respawn_time": [45, 60],
   "modifiers": "X (힐 공격 가능)",
   "drops": [
@@ -287,13 +245,6 @@
   "name": "머쉬맘",
   "level": 60,
   "hp": 558000,
-  "mp": null,
-  "weapon_def": null,
-  "magic_def": null,
-  "avoidability": null,
-  "required_accuracy": null,
-  "accuracy_level_decrease": null,
-  "exp": null,
   "respawn_time": [210, 240],
   "modifiers": "X",
   "drops": [
@@ -331,13 +282,6 @@
   "name": "좀비 머쉬맘",
   "level": 65,
   "hp": 786000,
-  "mp": null,
-  "weapon_def": 350,
-  "magic_def": 400,
-  "avoidability": 30,
-  "required_accuracy": 110,
-  "accuracy_level_decrease": 4,
-  "exp": null,
   "respawn_time": [195, 225],
   "modifiers": "X (힐 공격 가능)",
   "drops": [
@@ -375,13 +319,6 @@
   "name": "주니어 발록",
   "level": 80,
   "hp": 916000,
-  "mp": null,
-  "weapon_def": 420,
-  "magic_def": 450,
-  "avoidability": 30,
-  "required_accuracy": 110,
-  "accuracy_level_decrease": 4,
-  "exp": null,
   "respawn_time": [405, 540],
   "modifiers": "성 약점",
   "drops": [
@@ -1846,6 +1783,7 @@
         "region": "타이베이101, 대만"
     }
 ]
+
 
 
 
