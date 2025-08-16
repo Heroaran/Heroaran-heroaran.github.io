@@ -281,9 +281,9 @@
         </select>
       </label>
     </div>
-      <p id="filterNotice" style="font-size:14px; color:#666; margin-top:5px;">
-        조건 설정 후 <strong>검색</strong> 버튼을 눌러주세요.
-      </p>
+     <p id="filterNotice" style="font-size:14px; color:#666; margin-top:5px; display:none;">
+      조건 설정 후 <strong>검색</strong> 버튼을 눌러주세요.
+     </p>
     <div class="content-wrapper">
       <div id="results"></div>
       <div id="details"></div>
@@ -369,6 +369,7 @@ function unifiedSearch() {
       weaknessMatch = m.modifiers &&
                       m.modifiers.includes(weakness) &&
                       !m.modifiers.includes("반감");
+                      !m.modifiers.includes("무효");
     }
 
     // 지역 필터: 포함 여부 체크
@@ -552,5 +553,6 @@ function unifiedSearch() {
   </script>
 </body>
 </html>
+
 
 
