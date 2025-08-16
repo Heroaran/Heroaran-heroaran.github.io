@@ -207,6 +207,37 @@
     #filters label {
       margin-right: 15px;
     }
+     @media (max-width: 768px) {
+      .content-wrapper {
+        flex-direction: column; /* 세로 배치 */
+      }
+      #results, #details {
+        max-width: 100%;
+        border-left: none;
+        padding-left: 0;
+      }
+      input[type=text], 
+      #searchBtn, 
+      #filterToggle, 
+      #darkModeToggle {
+        width: 100%;
+        margin: 5px 0;
+      }
+      .result-item img {
+        width: 40px;
+      }
+      .drop-item img {
+        width: 30px;
+        height: 30px;
+      }
+      #autocompleteList {
+        width: 100% !important;
+        max-height: 200px;
+      }
+      h1 {
+        font-size: 1.4rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -656,3 +687,4 @@ document.addEventListener('click', e => {
   </script>
 </body>
 </html>
+
