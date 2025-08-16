@@ -368,7 +368,7 @@ function unifiedSearch() {
     if (weakness) {
       weaknessMatch = m.modifiers &&
                       m.modifiers.includes(weakness) &&
-                      !m.modifiers.includes("반감");
+                      !m.modifiers.includes("반감") &&
                       !m.modifiers.includes("무효");
     }
 
@@ -527,7 +527,95 @@ function unifiedSearch() {
       sub.appendChild(ul);
       details.appendChild(sub);
     }
+    document.getElementById('searchInput').addEventListener('input', function() {
+  const query = this.value.trim().toLowerCase();
+  const autocompleteList = document.getElementById('autocompleteList');
+  autocompleteList.innerHTML = '';
+  autocompleteList.style.display = 'none';
+  if (!query) return;
 
+  // 몬스터 이름 매치
+  const monsterMatches = [...monsterData, ...bossData].filter(m =>
+    stripGender(m.name).toLowerCase().includes(query)
+  );
+
+  // 아이템 이름 매치
+  const itemSet = new Set();
+  [...monsterData, ...bossData].forEach(m =>
+    (m.drops || []).forEach(d => {
+      if (stripGender(d).toLowerCase().includes(query)) {
+        itemSet.add(d);
+      }
+    })
+  );
+
+  if (!monsterMatches.length && !itemSet.size) return;
+  autocompleteList.style.display = 'block';
+
+  const addSection = (title, items, isItem = false) => {
+    if (!items.length) return;
+    const header = document.createElement('li');
+    header.innerHTML = `<strong>${title}</strong>`;
+    header.style.padding = '5px';
+    header.style.borderBottom = '1px solid #ccc';
+    autocompleteList.appendChild(header);
+
+    items.forEach(item => {
+      const li = document.createElement('li');
+      const img = getImageElement(
+        isItem ? itemImagePath : monsterImagePath,
+        item.name || item,
+        isItem
+      );
+      const span = document.createElement('span');
+      span.textContent = item.name || item;
+      li.appendChild(img);
+      li.appendChild(span);
+
+      li.addEventListener('click', () => {
+        document.getElementById('searchInput').value = item.name || item;
+        autocompleteList.style.display = 'none';
+        unifiedSearch();
+      });
+      autocompleteList.appendChild(li);
+    });
+  };
+
+  addSection('몬스터', monsterMatches.slice(0, 10));
+  addSection('아이템', Array.from(itemSet).slice(0, 10), true);
+
+  // 첫 번째 제안 자동 선택 표시
+  const suggestions = Array.from(autocompleteList.querySelectorAll('li'))
+                           .filter(li => !li.querySelector('strong'));
+  suggestions.forEach(li => li.classList.remove('selected'));
+  if (suggestions.length) suggestions[0].classList.add('selected');
+});
+
+// 엔터 입력 처리
+document.getElementById('searchInput').addEventListener('keydown', function(e) {
+  if (e.key !== 'Enter') return;
+  const list = document.getElementById('autocompleteList');
+  const suggestions = Array.from(list.querySelectorAll('li'))
+                           .filter(li => !li.querySelector('strong'));
+
+  if (list.style.display === 'block' && suggestions.length) {
+    // 자동완성 첫 번째 항목 강제 클릭
+    suggestions[0].dispatchEvent(new Event('click'));
+    e.preventDefault();
+    return;
+  }
+
+  // 자동완성 없으면 그냥 검색 실행
+  unifiedSearch();
+});
+
+// 자동완성 외부 클릭시 닫기
+document.addEventListener('click', e => {
+  const list = document.getElementById('autocompleteList');
+  if (!list.contains(e.target) && e.target.id !== 'searchInput') {
+    list.style.display = 'none';
+  }
+});
     // 이벤트 바인딩
     document.getElementById('searchBtn').addEventListener('click', unifiedSearch);
 
@@ -557,6 +645,7 @@ function unifiedSearch() {
   </script>
 </body>
 </html>
+
 
 
 
