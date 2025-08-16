@@ -533,7 +533,11 @@ function unifiedSearch() {
 
     document.getElementById('filterToggle').addEventListener('click', () => {
       const filters = document.getElementById('filters');
-      filters.style.display = (filters.style.display === 'none') ? 'block' : 'none';
+      const notice  = document.getElementById('filterNotice');
+      const isHidden = (filters.style.display === 'none');
+
+      filters.style.display = isHidden ? 'block' : 'none';
+      notice.style.display  = isHidden ? 'block' : 'none';
     });
 
     document.getElementById('darkModeToggle').addEventListener('click', () => {
@@ -553,6 +557,7 @@ function unifiedSearch() {
   </script>
 </body>
 </html>
+
 
 
 
