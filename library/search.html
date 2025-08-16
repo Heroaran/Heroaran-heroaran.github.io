@@ -404,7 +404,10 @@ function unifiedSearch() {
       const span = document.createElement('span');
       span.innerHTML = keywordRaw ? highlightKeyword(monster.name, keywordRaw) : escapeHtml(monster.name);
       div.appendChild(span);
-      div.addEventListener('click', () => showMonsterDetail(monster));
+      div.addEventListener('click', () => {
+        showMonsterDetail(monster);
+        window.scrollTo({ top: 0, behavior: 'smooth' }); // ✅ 추가
+      });
       resultsContainer.appendChild(div);
     });
   }
@@ -428,6 +431,7 @@ function unifiedSearch() {
         document.getElementById('searchInput').value = item;
         unifiedSearch();
         showItemDetail(item, itemMatches[item]);
+        window.scrollTo({ top: 0, behavior: 'smooth' }); // ✅ 추가
       });
 
       resultsContainer.appendChild(div);
@@ -474,6 +478,7 @@ function unifiedSearch() {
                 unifiedSearch();
                 const matches = [...monsterData, ...bossData].filter(m => (m.drops||[]).includes(item));
                 showItemDetail(item, matches);
+                window.scrollTo({ top: 0, behavior: 'smooth' }); // ✅ 추가
               " style="cursor:pointer; text-decoration:underline; color:#2196F3;">
                 ${escapeHtml(drop)}
               </span>
@@ -518,6 +523,7 @@ function unifiedSearch() {
           document.getElementById('searchInput').value = m.name;
           unifiedSearch();
           showMonsterDetail(m);
+          window.scrollTo({ top: 0, behavior: 'smooth' }); // ✅ 추가
         });
 
         li.appendChild(link);
@@ -576,6 +582,7 @@ function unifiedSearch() {
         document.getElementById('searchInput').value = item.name || item;
         autocompleteList.style.display = 'none';
         unifiedSearch();
+        window.scrollTo({ top: 0, behavior: 'smooth' }); // ✅ 추가
       });
       autocompleteList.appendChild(li);
     });
@@ -607,6 +614,7 @@ document.getElementById('searchInput').addEventListener('keydown', function(e) {
 
   // 자동완성 없으면 그냥 검색 실행
   unifiedSearch();
+  window.scrollTo({ top: 0, behavior: 'smooth' }); // ✅ 추가
 });
 
 // 자동완성 외부 클릭시 닫기
@@ -617,7 +625,10 @@ document.addEventListener('click', e => {
   }
 });
     // 이벤트 바인딩
-    document.getElementById('searchBtn').addEventListener('click', unifiedSearch);
+    document.getElementById('searchBtn').addEventListener('click', () => {
+      unifiedSearch();
+      window.scrollTo({ top: 0, behavior: 'smooth' }); // ✅ 추가
+    });
 
     document.getElementById('filterToggle').addEventListener('click', () => {
       const filters = document.getElementById('filters');
@@ -645,9 +656,3 @@ document.addEventListener('click', e => {
   </script>
 </body>
 </html>
-
-
-
-
-
-
