@@ -334,94 +334,107 @@
       bossData    = await bossResp.json();
     }
 
-    function unifiedSearch() {
-      const keywordRaw = document.getElementById('searchInput').value.trim();
-      const terms = keywordRaw ? keywordRaw.toLowerCase().split(',').map(t => normalize(t.trim())) : [];
+function unifiedSearch() {
+  const keywordRaw = document.getElementById('searchInput').value.trim();
+  const terms = keywordRaw ? keywordRaw.toLowerCase().split(',').map(t => normalize(t.trim())) : [];
 
-      // 🔽 필터 값 읽기
-      const levelRange = document.getElementById('levelRange').value;
-      const weakness   = document.getElementById('weaknessSelect').value;
-      const region     = document.getElementById('regionSelect').value;
+  // 🔽 필터 값 읽기
+  const levelRange = document.getElementById('levelRange').value;
+  const weakness   = document.getElementById('weaknessSelect').value;
+  const region     = document.getElementById('regionSelect').value;
 
-      let minLevel = 0, maxLevel = Infinity;
-      if (levelRange && levelRange.includes('-')) {
-        const parts = levelRange.split('-');
-        minLevel = parseInt(parts[0], 10);
-        maxLevel = parseInt(parts[1], 10);
-      } else if (levelRange === '130+') {
-        minLevel = 130; maxLevel = Infinity;
+  let minLevel = 0, maxLevel = Infinity;
+  if (levelRange && levelRange.includes('-')) {
+    const parts = levelRange.split('-');
+    minLevel = parseInt(parts[0], 10);
+    maxLevel = parseInt(parts[1], 10);
+  } else if (levelRange === '130+') {
+    minLevel = 130; maxLevel = Infinity;
+  }
+
+  const resultsContainer = document.getElementById('results');
+  resultsContainer.innerHTML = "";
+  document.getElementById('details').innerHTML = "";
+
+  // 🔽 몬스터 필터링
+  const monsterMatches = [...monsterData, ...bossData].filter(m => {
+    const nameMatch = !terms.length || terms.some(term => normalize(m.name).includes(term));
+    const levelMatch = (!m.level || (m.level >= minLevel && m.level <= maxLevel));
+
+    // 약점 필터: "불 반감" 같은 경우는 제외
+    let weaknessMatch = true;
+    if (weakness) {
+      weaknessMatch = m.modifiers &&
+                      m.modifiers.includes(weakness) &&
+                      !m.modifiers.includes("반감");
+    }
+
+    // 지역 필터: 포함 여부 체크
+    let regionMatch = true;
+    if (region) {
+      regionMatch = m.region && m.region.includes(region);
+    }
+
+    return nameMatch && levelMatch && weaknessMatch && regionMatch;
+  });
+
+  // 🔽 아이템 매치 (검색어 있을 때만)
+  const itemMatches = {};
+  if (terms.length) {
+    [...monsterData, ...bossData].forEach(m => (m.drops || []).forEach(drop => {
+      const normDrop = normalize(drop);
+      if (terms.some(term => normDrop.includes(term))) {
+        if (!itemMatches[drop]) itemMatches[drop] = [];
+        itemMatches[drop].push(m);
       }
+    }));
+  }
 
-      const resultsContainer = document.getElementById('results');
-      resultsContainer.innerHTML = "";
-      document.getElementById('details').innerHTML = "";
+  // 🔽 결과 출력
+  if (monsterMatches.length) {
+    const title = document.createElement('h2');
+    title.textContent = `🧟 몬스터 (${monsterMatches.length})`;
+    resultsContainer.appendChild(title);
+    monsterMatches.forEach(monster => {
+      const div = document.createElement('div'); div.classList.add('result-item');
+      div.appendChild(getImageElement(monsterImagePath, monster.name));
+      const span = document.createElement('span');
+      span.innerHTML = keywordRaw ? highlightKeyword(monster.name, keywordRaw) : escapeHtml(monster.name);
+      div.appendChild(span);
+      div.addEventListener('click', () => showMonsterDetail(monster));
+      resultsContainer.appendChild(div);
+    });
+  }
 
-      // 🔽 몬스터 필터링
-      const monsterMatches = [...monsterData, ...bossData].filter(m => {
-        const nameMatch = !terms.length || terms.some(term => normalize(m.name).includes(term));
-        const levelMatch = (!m.level || (m.level >= minLevel && m.level <= maxLevel));
-        const weaknessMatch = !weakness || (m.modifiers && m.modifiers.includes(weakness));
-        const regionMatch   = !region   || (m.region && m.region === region);
-        return nameMatch && levelMatch && weaknessMatch && regionMatch;
+  const itemKeys = Object.keys(itemMatches);
+  if (itemKeys.length) {
+    const title = document.createElement('h2');
+    title.textContent = `🎁 아이템 (${itemKeys.length})`;
+    resultsContainer.appendChild(title);
+
+    itemKeys.forEach(item => {
+      const div = document.createElement('div');
+      div.classList.add('result-item');
+      div.appendChild(getImageElement(itemImagePath, item, true));
+
+      const span = document.createElement('span');
+      span.innerHTML = highlightKeyword(item, keywordRaw);
+      div.appendChild(span);
+
+      div.addEventListener('click', () => {
+        document.getElementById('searchInput').value = item;
+        unifiedSearch();
+        showItemDetail(item, itemMatches[item]);
       });
 
-      // 🔽 아이템 매치
-      const itemMatches = {};
-      if (terms.length) {
-        [...monsterData, ...bossData].forEach(m => (m.drops || []).forEach(drop => {
-          const normDrop = normalize(drop);
-          if (terms.some(term => normDrop.includes(term))) {
-            if (!itemMatches[drop]) itemMatches[drop] = [];
-            itemMatches[drop].push(m);
-          }
-        }));
-      }
+      resultsContainer.appendChild(div);
+    });
+  }
 
-      // 🔽 결과 출력
-      if (monsterMatches.length) {
-        const title = document.createElement('h2');
-        title.textContent = `🧟 몬스터 (${monsterMatches.length})`;
-        resultsContainer.appendChild(title);
-        monsterMatches.forEach(monster => {
-          const div = document.createElement('div'); div.classList.add('result-item');
-          div.appendChild(getImageElement(monsterImagePath, monster.name));
-          const span = document.createElement('span');
-          span.innerHTML = highlightKeyword(monster.name, keywordRaw);
-          div.appendChild(span);
-          div.addEventListener('click', () => showMonsterDetail(monster));
-          resultsContainer.appendChild(div);
-        });
-      }
-
-      const itemKeys = Object.keys(itemMatches);
-      if (itemKeys.length) {
-        const title = document.createElement('h2');
-        title.textContent = `🎁 아이템 (${itemKeys.length})`;
-        resultsContainer.appendChild(title);
-
-        itemKeys.forEach(item => {
-          const div = document.createElement('div');
-          div.classList.add('result-item');
-          div.appendChild(getImageElement(itemImagePath, item, true));
-
-          const span = document.createElement('span');
-          span.innerHTML = highlightKeyword(item, keywordRaw);
-          div.appendChild(span);
-
-          div.addEventListener('click', () => {
-            document.getElementById('searchInput').value = item;
-            unifiedSearch();
-            showItemDetail(item, itemMatches[item]);
-          });
-
-          resultsContainer.appendChild(div);
-        });
-      }
-
-      if (!monsterMatches.length && !itemKeys.length) {
-        resultsContainer.innerHTML = "<p>검색된 결과가 없습니다.</p>";
-      }
-    }
+  if (!monsterMatches.length && !itemKeys.length) {
+    resultsContainer.innerHTML = "<p>검색된 결과가 없습니다.</p>";
+  }
+}
 
     function showMonsterDetail(monster) {
       const details = document.getElementById('details');
@@ -537,3 +550,4 @@
   </script>
 </body>
 </html>
+
