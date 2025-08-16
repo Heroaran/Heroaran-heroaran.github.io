@@ -126,12 +126,10 @@
     #details a:hover {
       text-decoration: underline !important;
     }
-    /* 다크 모드에서 링크/아이템 색을 중립 톤으로 */
     body.dark-mode .drop-item span,
     body.dark-mode #details a {
       color: #a1ccd9 !important;
     }
-    /* 아이템 상세보기 획득처 리스트 – 중앙 정렬 & 간격 */
     #details ul li {
       display: flex;
       align-items: center;
@@ -143,12 +141,9 @@
       object-fit: contain;
       margin-right: 10px;
     }
-
-    /* autocomplete 첫 번째 항목 하이라이트 */
     #autocompleteList li.selected {
       background-color: #f0f0f0;
     }
-
     .top-right-button {
       position: absolute;
       top: 20px;
@@ -196,6 +191,22 @@
       max-height: 30px;
       margin-right: 10px;
     }
+    /* 🔽 필터 박스 */
+    #filters {
+      display: none;
+      margin: 15px 0;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background: #f5f5f5;
+    }
+    body.dark-mode #filters {
+      background: #2b2b2b;
+      border: 1px solid #555;
+    }
+    #filters label {
+      margin-right: 15px;
+    }
   </style>
 </head>
 <body>
@@ -206,8 +217,71 @@
       <input type="text" id="searchInput" placeholder="키워드를 입력하세요 (예: 달팽이)">
       <ul id="autocompleteList"></ul>
       <button id="searchBtn">검색</button>
+      <button id="filterToggle">⚙️ 필터</button>
       <button id="darkModeToggle">🌙 다크 모드</button>
     </div>
+
+    <!-- 🔽 필터 선택 영역 -->
+    <div id="filters">
+      <label>
+        레벨대:
+        <select id="levelRange">
+          <option value="">전체</option>
+          <option value="1-10">1–10</option>
+          <option value="11-20">11–20</option>
+          <option value="21-30">21–30</option>
+          <option value="31-40">31–40</option>
+          <option value="41-50">41–50</option>
+          <option value="51-60">51–60</option>
+          <option value="61-70">61–70</option>
+          <option value="71-80">71–80</option>
+          <option value="81-90">81–90</option>
+          <option value="91-100">91–100</option>
+          <option value="101-110">101–110</option>
+          <option value="111-120">111–120</option>
+          <option value="130+">130 이상</option>
+        </select>
+      </label>
+
+      <label>
+        속성:
+        <select id="weaknessSelect">
+          <option value="">전체</option>
+          <option value="불">불</option>
+          <option value="얼음">얼음</option>
+          <option value="전기">전기</option>
+          <option value="성">성</option>
+          <option value="독">독</option>
+          <option value="힐">힐 공격 가능</option>
+        </select>
+      </label>
+
+      <label>
+        지역:
+        <select id="regionSelect">
+          <option value="">전체</option>
+          <option value="빅토리아 아일랜드">빅토리아 아일랜드</option>
+          <option value="오르비스">오르비스</option>
+          <option value="엘나스">엘나스</option>
+          <option value="루디브리엄">루디브리엄</option>
+          <option value="시계탑 최하층">시계탑 최하층</option>
+          <option value="엘린숲">엘린숲</option>
+          <option value="지구방위본부">지구방위본부</option>
+          <option value="아랫마을">아랫마을</option>
+          <option value="무릉">무릉</option>
+          <option value="백초마을">백초마을</option>
+          <option value="아리안트">아리안트</option>
+          <option value="마가티아">마가티아</option>
+          <option value="리프레">리프레</option>
+          <option value="시간의 신전">시간의 신전</option>
+          <option value="일본">일본</option>
+          <option value="상해">상해</option>
+          <option value="대만">대만</option>
+          <option value="태국">태국</option>
+        </select>
+      </label>
+    </div>
+
     <div class="content-wrapper">
       <div id="results"></div>
       <div id="details"></div>
@@ -246,6 +320,7 @@
     };
 
     const highlightKeyword = (text, keyword) => {
+      if (!keyword) return escapeHtml(text);
       const regex = new RegExp(`(${keyword})`, 'gi');
       return escapeHtml(text).replace(regex, '<mark>$1</mark>');
     };
@@ -261,25 +336,48 @@
 
     function unifiedSearch() {
       const keywordRaw = document.getElementById('searchInput').value.trim();
-      if (!keywordRaw) return alert("검색어를 입력해주세요.");
+      const terms = keywordRaw ? keywordRaw.toLowerCase().split(',').map(t => normalize(t.trim())) : [];
 
-      const terms = keywordRaw.toLowerCase().split(',').map(t => normalize(t.trim()));
+      // 🔽 필터 값 읽기
+      const levelRange = document.getElementById('levelRange').value;
+      const weakness   = document.getElementById('weaknessSelect').value;
+      const region     = document.getElementById('regionSelect').value;
+
+      let minLevel = 0, maxLevel = Infinity;
+      if (levelRange && levelRange.includes('-')) {
+        const parts = levelRange.split('-');
+        minLevel = parseInt(parts[0], 10);
+        maxLevel = parseInt(parts[1], 10);
+      } else if (levelRange === '130+') {
+        minLevel = 130; maxLevel = Infinity;
+      }
+
       const resultsContainer = document.getElementById('results');
       resultsContainer.innerHTML = "";
       document.getElementById('details').innerHTML = "";
 
-      const monsterMatches = [...monsterData, ...bossData].filter(m =>
-        terms.some(term => normalize(m.name).includes(term)));
+      // 🔽 몬스터 필터링
+      const monsterMatches = [...monsterData, ...bossData].filter(m => {
+        const nameMatch = !terms.length || terms.some(term => normalize(m.name).includes(term));
+        const levelMatch = (!m.level || (m.level >= minLevel && m.level <= maxLevel));
+        const weaknessMatch = !weakness || (m.modifiers && m.modifiers.includes(weakness));
+        const regionMatch   = !region   || (m.region && m.region === region);
+        return nameMatch && levelMatch && weaknessMatch && regionMatch;
+      });
 
+      // 🔽 아이템 매치
       const itemMatches = {};
-      [...monsterData, ...bossData].forEach(m => (m.drops || []).forEach(drop => {
-        const normDrop = normalize(drop);
-        if (terms.some(term => normDrop.includes(term))) {
-          if (!itemMatches[drop]) itemMatches[drop] = [];
-          itemMatches[drop].push(m);
-        }
-      }));
+      if (terms.length) {
+        [...monsterData, ...bossData].forEach(m => (m.drops || []).forEach(drop => {
+          const normDrop = normalize(drop);
+          if (terms.some(term => normDrop.includes(term))) {
+            if (!itemMatches[drop]) itemMatches[drop] = [];
+            itemMatches[drop].push(m);
+          }
+        }));
+      }
 
+      // 🔽 결과 출력
       if (monsterMatches.length) {
         const title = document.createElement('h2');
         title.textContent = `🧟 몬스터 (${monsterMatches.length})`;
@@ -296,32 +394,29 @@
       }
 
       const itemKeys = Object.keys(itemMatches);
-     if (itemKeys.length) {
-  const title = document.createElement('h2');
-  title.textContent = `🎁 아이템 (${itemKeys.length})`;
-  resultsContainer.appendChild(title);
+      if (itemKeys.length) {
+        const title = document.createElement('h2');
+        title.textContent = `🎁 아이템 (${itemKeys.length})`;
+        resultsContainer.appendChild(title);
 
-  itemKeys.forEach(item => {
-    const div = document.createElement('div');
-    div.classList.add('result-item');
-    div.appendChild(getImageElement(itemImagePath, item, true));
+        itemKeys.forEach(item => {
+          const div = document.createElement('div');
+          div.classList.add('result-item');
+          div.appendChild(getImageElement(itemImagePath, item, true));
 
-    const span = document.createElement('span');
-    span.innerHTML = highlightKeyword(item, keywordRaw);
-    div.appendChild(span);
+          const span = document.createElement('span');
+          span.innerHTML = highlightKeyword(item, keywordRaw);
+          div.appendChild(span);
 
-    // 클릭 핸들러: 검색어 세팅 → unifiedSearch → 상세보기
-    div.addEventListener('click', () => {
-      document.getElementById('searchInput').value = item;
-      unifiedSearch();
-      showItemDetail(item, itemMatches[item]);
-  });
+          div.addEventListener('click', () => {
+            document.getElementById('searchInput').value = item;
+            unifiedSearch();
+            showItemDetail(item, itemMatches[item]);
+          });
 
-    // appendChild는 forEach 블록 안, 핸들러 바깥에
-    resultsContainer.appendChild(div);
-  });  // ← forEach 끝
-
-} // ← if (itemKeys.length) 끝
+          resultsContainer.appendChild(div);
+        });
+      }
 
       if (!monsterMatches.length && !itemKeys.length) {
         resultsContainer.innerHTML = "<p>검색된 결과가 없습니다.</p>";
@@ -334,37 +429,6 @@
       const imgSrc   = `${monsterImagePath}${filename}.png`;
       const fallback = `${monsterImagePath}${filename}.gif`;
 
-      const minutesToHM = m => {
-        const h  = Math.floor(m / 60);
-        const mm = m % 60;
-        const parts = [];
-        if (h)  parts.push(`${h}시간`);
-        if (mm) parts.push(`${mm}분`);
-        return parts.join(' ') || '0분';
-      };
-
-      let respawnHtml = '';
-      if (monster.respawn_time != null) {
-        try {
-          let arr;
-          if (typeof monster.respawn_time === 'string' && monster.respawn_time.includes(',')) {
-            arr = monster.respawn_time.split(',').map(s => parseInt(s.trim(), 10));
-          } else if (Array.isArray(monster.respawn_time)) {
-            arr = monster.respawn_time.map(n => parseInt(n, 10));
-          } else {
-            arr = [ parseInt(monster.respawn_time, 10) ];
-          }
-
-          const from = minutesToHM(arr[0]);
-          const to   = arr[1] ? minutesToHM(arr[1]) : null;
-          respawnHtml = to
-            ? `<p><strong>리스폰 시간:</strong> ${from} ~ ${to}</p>`
-            : `<p><strong>리스폰 시간:</strong> ${from}</p>`;
-        } catch (e) {
-          console.warn('리스폰 시간 파싱 실패:', monster.respawn_time, e);
-        }
-      }
-
       details.innerHTML = `
         <h2>${escapeHtml(monster.name)}</h2>
         <img src="${imgSrc}" onerror="this.onerror=null;this.src='${fallback}';" alt="${escapeHtml(monster.name)}">
@@ -374,34 +438,28 @@
         <p><strong>지역:</strong> ${monster.region || 'N/A'}</p>
         <p><strong>경험치(EXP):</strong> ${monster.exp    || 'N/A'}</p>
 
-        ${respawnHtml}
-
         <p><strong>속성:</strong> ${monster.modifiers || 'N/A'}</p>
         ${bossData.includes(monster) ? '' : `
       <p><strong>요구 명중률:</strong>
         ${monster.required_accuracy || 'N/A'}
         ${monster.accuracy_level_decrease != null
           ? `(몬스터 레벨보다 1레벨 낮을 때 마다 +${monster.accuracy_level_decrease})`
-          : ''}
-        </p>`}
+          : ''}`}
 
         <div style="margin-top:10px;">
           ${(monster.drops || []).map(drop => `
             <div class="drop-item">
-              <img src="${itemImagePath + getItemImageName(drop)}.png" onerror="this.onerror=null;this.src='${itemImagePath + getItemImageName(drop)}.gif';" alt="${escapeHtml(drop)}">
-              <span
-                onclick="
-                   const item = '${escapeHtml(drop)}';
-                    // 검색어 세팅 & 검색 실행
-                    document.getElementById('searchInput').value = item;
-                     unifiedSearch();
-                     // 검색 결과(monsterData, bossData)에서 해당 아이템 드롭하는 몬스터만 골라 디테일 표시
-                     const matches = [...monsterData, ...bossData].filter(m => (m.drops||[]).includes(item));
-                     showItemDetail(item, matches);
-                   "
-                    style="cursor:pointer; text-decoration:underline; color:#2196F3;"
-                  >
-                    ${escapeHtml(drop)}
+              <img src="${itemImagePath + getItemImageName(drop)}.png" 
+                   onerror="this.onerror=null;this.src='${itemImagePath + getItemImageName(drop)}.gif';" 
+                   alt="${escapeHtml(drop)}">
+              <span onclick="
+                const item = '${escapeHtml(drop)}';
+                document.getElementById('searchInput').value = item;
+                unifiedSearch();
+                const matches = [...monsterData, ...bossData].filter(m => (m.drops||[]).includes(item));
+                showItemDetail(item, matches);
+              " style="cursor:pointer; text-decoration:underline; color:#2196F3;">
+                ${escapeHtml(drop)}
               </span>
             </div>
           `).join('')}
@@ -410,136 +468,56 @@
     }
 
     function showItemDetail(item, monsters) {
-  const details = document.getElementById('details');
-  details.innerHTML = '';
-  details.appendChild(getImageElement(itemImagePath, item, true));
+      const details = document.getElementById('details');
+      details.innerHTML = '';
+      details.appendChild(getImageElement(itemImagePath, item, true));
 
-  const title = document.createElement('h2');
-  title.textContent = item;
-  details.appendChild(title);
+      const title = document.createElement('h2');
+      title.textContent = item;
+      details.appendChild(title);
 
-  const sub = document.createElement('div');
-  sub.innerHTML = `<p><strong>획득처:</strong></p>`;
+      const sub = document.createElement('div');
+      sub.innerHTML = `<p><strong>획득처:</strong></p>`;
 
-  const ul = document.createElement('ul');
-  monsters.forEach(m => {
-    const li = document.createElement('li');
-    li.style.display = 'flex';
-    li.style.alignItems = 'center';
-    li.style.marginBottom = '8px';
+      const ul = document.createElement('ul');
+      monsters.forEach(m => {
+        const li = document.createElement('li');
+        li.style.display = 'flex';
+        li.style.alignItems = 'center';
+        li.style.marginBottom = '8px';
 
-    const img = getImageElement(monsterImagePath, m.name);
-    img.style.width = '30px';
-    img.style.marginRight = '8px';
-    li.appendChild(img);
+        const img = getImageElement(monsterImagePath, m.name);
+        img.style.width = '30px';
+        img.style.marginRight = '8px';
+        li.appendChild(img);
 
-    const link = document.createElement('a');
-    link.href = '#';
-    link.textContent = `${m.name} (레벨: ${m.level || 'N/A'}, 지역: ${m.region || 'N/A'})`;
-    link.style.textDecoration = 'none';
-    link.style.color = '#2196F3';
+        const link = document.createElement('a');
+        link.href = '#';
+        link.textContent = `${m.name} (레벨: ${m.level || 'N/A'}, 지역: ${m.region || 'N/A'})`;
+        link.style.textDecoration = 'none';
+        link.style.color = '#2196F3';
 
-    link.addEventListener('click', e => {
-      e.preventDefault();
-      // 1) 검색창 세팅
-      document.getElementById('searchInput').value = m.name;
-      // 2) unifiedSearch로 좌측 결과 갱신
-      unifiedSearch();
-      // 3) 해당 몬스터 상세정보 출력
-      showMonsterDetail(m);
-    });
+        link.addEventListener('click', e => {
+          e.preventDefault();
+          document.getElementById('searchInput').value = m.name;
+          unifiedSearch();
+          showMonsterDetail(m);
+        });
 
-    li.appendChild(link);
-    ul.appendChild(li);
-  });
+        li.appendChild(link);
+        ul.appendChild(li);
+      });
 
-  sub.appendChild(ul);
-  details.appendChild(sub);
-}
+      sub.appendChild(ul);
+      details.appendChild(sub);
+    }
 
+    // 이벤트 바인딩
     document.getElementById('searchBtn').addEventListener('click', unifiedSearch);
 
-    // 자동 제안 첫 번째 선택 및 Enter 처리
-    document.getElementById('searchInput').addEventListener('input', function() {
-      const query = this.value.trim().toLowerCase();
-      const autocompleteList = document.getElementById('autocompleteList');
-      autocompleteList.innerHTML = '';
-      autocompleteList.style.display = 'none';
-      if (!query) return;
-
-      const monsterMatches = [...monsterData, ...bossData].filter(m =>
-        stripGender(m.name).toLowerCase().includes(query)
-      );
-      const itemSet = new Set();
-      [...monsterData, ...bossData].forEach(m =>
-        (m.drops || []).forEach(d => {
-          if (stripGender(d).toLowerCase().includes(query)) {
-            itemSet.add(d);
-          }
-        })
-      );
-      if (!monsterMatches.length && !itemSet.size) return;
-      autocompleteList.style.display = 'block';
-
-      const addSection = (title, items, isItem = false) => {
-        if (!items.length) return;
-        const header = document.createElement('li');
-        header.innerHTML = `<strong>${title}</strong>`;
-        header.style.padding = '5px';
-        header.style.borderBottom = '1px solid #ccc';
-        autocompleteList.appendChild(header);
-        items.forEach(item => {
-          const li = document.createElement('li');
-          const img = getImageElement(
-            isItem ? itemImagePath : monsterImagePath,
-            item.name || item,
-            isItem
-          );
-          const span = document.createElement('span');
-          span.textContent = item.name || item;
-          li.appendChild(img);
-          li.appendChild(span);
-          li.addEventListener('click', () => {
-            document.getElementById('searchInput').value = item.name || item;
-            autocompleteList.style.display = 'none';
-            unifiedSearch();
-          });
-          autocompleteList.appendChild(li);
-        });
-      };
-
-      addSection('몬스터', monsterMatches.slice(0, 10));
-      addSection('아이템', Array.from(itemSet).slice(0, 10), true);
-
-      // 첫 번째 제안 자동 선택
-      const list = document.getElementById('autocompleteList');
-      const suggestions = Array.from(list.querySelectorAll('li'))
-                               .filter(li => !li.querySelector('strong'));
-      suggestions.forEach(li => li.classList.remove('selected'));
-      if (suggestions.length) suggestions[0].classList.add('selected');
-    });
-
-    document.getElementById('searchInput').addEventListener('keydown', function(e) {
-      if (e.key !== 'Enter') return;
-      const list = document.getElementById('autocompleteList');
-      if (list.style.display === 'block') {
-        const suggestions = Array.from(list.querySelectorAll('li'))
-                                 .filter(li => !li.querySelector('strong'));
-        if (suggestions.length) {
-          suggestions[0].click();
-          e.preventDefault();
-          return;
-        }
-      }
-      unifiedSearch();
-    });
-
-    document.addEventListener('click', e => {
-      const target = e.target;
-      const list = document.getElementById('autocompleteList');
-      if (!list.contains(target) && target.id !== 'searchInput') {
-        list.style.display = 'none';
-      }
+    document.getElementById('filterToggle').addEventListener('click', () => {
+      const filters = document.getElementById('filters');
+      filters.style.display = (filters.style.display === 'none') ? 'block' : 'none';
     });
 
     document.getElementById('darkModeToggle').addEventListener('click', () => {
@@ -559,5 +537,3 @@
   </script>
 </body>
 </html>
-
-
