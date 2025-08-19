@@ -526,50 +526,6 @@ function unifiedSearch() {
   `;
 }
 
-      const details = document.getElementById('details');
-      const filename = stripGender(monster.name).replace(/\s+/g, '_');
-      const imgSrc   = `${monsterImagePath}${filename}.png`;
-      const fallback = `${monsterImagePath}${filename}.gif`;
-
-      details.innerHTML = `
-        <h2>${escapeHtml(monster.name)}</h2>
-        <img src="${imgSrc}" onerror="this.onerror=null;this.src='${fallback}';" alt="${escapeHtml(monster.name)}">
-
-        <p><strong>레벨:</strong> ${monster.level  || 'N/A'}</p>
-        <p><strong>체력(HP):</strong> ${monster.hp     || 'N/A'}</p>
-        <p><strong>지역:</strong> ${monster.region || 'N/A'}</p>
-        <p><strong>경험치(EXP):</strong> ${monster.exp    || 'N/A'}</p>
-
-        <p><strong>속성:</strong> ${monster.modifiers || 'N/A'}</p>
-        ${bossData.includes(monster) ? '' : `
-      <p><strong>요구 명중률:</strong>
-        ${monster.required_accuracy || 'N/A'}
-        ${monster.accuracy_level_decrease != null
-          ? `(몬스터 레벨보다 1레벨 낮을 때 마다 +${monster.accuracy_level_decrease})`
-          : ''}`}
-
-        <div style="margin-top:10px;">
-          ${(monster.drops || []).map(drop => `
-            <div class="drop-item">
-              <img src="${itemImagePath + getItemImageName(drop)}.png" 
-                   onerror="this.onerror=null;this.src='${itemImagePath + getItemImageName(drop)}.gif';" 
-                   alt="${escapeHtml(drop)}">
-              <span onclick="
-                const item = '${escapeHtml(drop)}';
-                document.getElementById('searchInput').value = item;
-                unifiedSearch();
-                const matches = [...monsterData, ...bossData].filter(m => (m.drops||[]).includes(item));
-                showItemDetail(item, matches);
-                window.scrollTo({ top: 0, behavior: 'smooth' }); // ✅ 추가
-              " style="cursor:pointer; text-decoration:underline; color:#2196F3;">
-                ${escapeHtml(drop)}
-              </span>
-            </div>
-          `).join('')}
-        </div>
-      `;
-    }
-
     function showItemDetail(item, monsters) {
       const details = document.getElementById('details');
       details.innerHTML = '';
@@ -738,6 +694,7 @@ document.addEventListener('click', e => {
   </script>
 </body>
 </html>
+
 
 
 
