@@ -659,15 +659,15 @@ const monsterMatches = [...monsterData, ...bossData].filter(m => {
 // 엔터 입력 처리
 document.getElementById('searchInput').addEventListener('keydown', function(e) {
   if (e.key !== 'Enter') return;
+
   const list = document.getElementById('autocompleteList');
   const suggestions = Array.from(list.querySelectorAll('li'))
                            .filter(li => !li.querySelector('strong'));
-
   const currentValue = this.value.trim();
 
   if (list.style.display === 'block' && suggestions.length) {
-    // 입력값과 자동완성 후보 중 하나가 정확히 일치하는 경우 → 그냥 검색 실행
-    const exactMatch = suggestions.some(li => (li.textContent.trim() === currentValue));
+    // 후보 중 입력값과 정확히 일치하는 경우 → 그대로 검색
+    const exactMatch = suggestions.some(li => li.textContent.trim() === currentValue);
     if (exactMatch) {
       unifiedSearch();
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -676,15 +676,17 @@ document.getElementById('searchInput').addEventListener('keydown', function(e) {
       return;
     }
 
-    // 일치하지 않으면 첫 번째 제안 강제 선택
-    suggestions[0].dispatchEvent(new Event('click'));
+    // 일치하지 않으면 후보는 그냥 표시만 유지하고 검색 실행
+    unifiedSearch();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     e.preventDefault();
     return;
   }
 
-  // 자동완성 없으면 그냥 검색 실행
+  // 자동완성 후보 자체가 없을 때 → 입력값 그대로 검색
   unifiedSearch();
   window.scrollTo({ top: 0, behavior: 'smooth' });
+  e.preventDefault();
 });
 
 // 자동완성 외부 클릭시 닫기
@@ -726,6 +728,7 @@ document.addEventListener('click', e => {
   </script>
 </body>
 </html>
+
 
 
 
