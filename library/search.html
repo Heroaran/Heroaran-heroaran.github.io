@@ -663,8 +663,20 @@ document.getElementById('searchInput').addEventListener('keydown', function(e) {
   const suggestions = Array.from(list.querySelectorAll('li'))
                            .filter(li => !li.querySelector('strong'));
 
+  const currentValue = this.value.trim();
+
   if (list.style.display === 'block' && suggestions.length) {
-    // 자동완성 첫 번째 항목 강제 클릭
+    // 입력값과 자동완성 후보 중 하나가 정확히 일치하는 경우 → 그냥 검색 실행
+    const exactMatch = suggestions.some(li => (li.textContent.trim() === currentValue));
+    if (exactMatch) {
+      unifiedSearch();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      list.style.display = 'none';
+      e.preventDefault();
+      return;
+    }
+
+    // 일치하지 않으면 첫 번째 제안 강제 선택
     suggestions[0].dispatchEvent(new Event('click'));
     e.preventDefault();
     return;
@@ -672,7 +684,7 @@ document.getElementById('searchInput').addEventListener('keydown', function(e) {
 
   // 자동완성 없으면 그냥 검색 실행
   unifiedSearch();
-  window.scrollTo({ top: 0, behavior: 'smooth' }); // ✅ 추가
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
 // 자동완성 외부 클릭시 닫기
@@ -714,6 +726,7 @@ document.addEventListener('click', e => {
   </script>
 </body>
 </html>
+
 
 
 
