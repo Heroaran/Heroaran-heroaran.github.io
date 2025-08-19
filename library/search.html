@@ -474,7 +474,7 @@ function unifiedSearch() {
   }
 }
 
-  function showMonsterDetail(monster) {
+ function showMonsterDetail(monster) {
   const details = document.getElementById('details');
   const filename = stripGender(monster.name).replace(/\s+/g, '_');
   const imgSrc   = `${monsterImagePath}${filename}.png`;
@@ -504,7 +504,7 @@ function unifiedSearch() {
           : ''}
       </p>
     ` : ''}
-    
+
     <div style="margin-top:10px;">
       ${(monster.drops || []).map(drop => `
         <div class="drop-item">
@@ -522,10 +522,11 @@ function unifiedSearch() {
             ${escapeHtml(drop)}
           </span>
         </div>
-      `).join('')
+      `).join('')}
     </div>
   `;
 }
+
       const details = document.getElementById('details');
       const filename = stripGender(monster.name).replace(/\s+/g, '_');
       const imgSrc   = `${monsterImagePath}${filename}.png`;
@@ -738,6 +739,7 @@ document.addEventListener('click', e => {
   </script>
 </body>
 </html>
+
 
 
 
