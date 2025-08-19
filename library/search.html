@@ -493,7 +493,9 @@ function unifiedSearch() {
     <p><strong>속성:</strong> ${monster.modifiers || 'N/A'}</p>
 
     ${bossData.includes(monster) && monster.respawn_time
-      ? `<p><strong>리스폰:</strong> ${monster.respawn_time[0]}분 ~ ${monster.respawn_time[1]}분</p>`
+      ? `<p><strong>리스폰:</strong> 
+          ${formatRespawnTime(monster.respawn_time[0])} ~ ${formatRespawnTime(monster.respawn_time[1])}
+        </p>`
       : ''}
 
     ${!bossData.includes(monster) ? `
@@ -524,6 +526,13 @@ function unifiedSearch() {
       `).join('')}
     </div>
   `;
+}
+    function formatRespawnTime(minutes) {
+  const h = Math.floor(minutes / 60);
+  const m = minutes % 60;
+  if (h > 0 && m > 0) return `${h}시간 ${m}분`;
+  if (h > 0) return `${h}시간`;
+  return `${m}분`;
 }
 
     function showItemDetail(item, monsters) {
@@ -694,6 +703,7 @@ document.addEventListener('click', e => {
   </script>
 </body>
 </html>
+
 
 
 
