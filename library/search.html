@@ -311,6 +311,9 @@
           <option value="태국">태국</option>
         </select>
       </label>
+      <label>
+        <input type="checkbox" id="bossOnly"> 보스몬스터만 보기
+      </label>
     </div>
      <p id="filterNotice" style="font-size:14px; color:#666; margin-top:5px; display:none;">
       조건 설정 후 <strong>검색</strong> 버튼을 눌러주세요.
@@ -390,27 +393,35 @@ function unifiedSearch() {
   document.getElementById('details').innerHTML = "";
 
   // 🔽 몬스터 필터링
-  const monsterMatches = [...monsterData, ...bossData].filter(m => {
-    const nameMatch = !terms.length || terms.some(term => normalize(m.name).includes(term));
-    const levelMatch = (!m.level || (m.level >= minLevel && m.level <= maxLevel));
+const bossOnly = document.getElementById('bossOnly').checked;
 
-    // 약점 필터: "불 반감" 같은 경우는 제외
-    let weaknessMatch = true;
-    if (weakness) {
-      weaknessMatch = m.modifiers &&
-                      m.modifiers.includes(weakness) &&
-                      !m.modifiers.includes("반감") &&
-                      !m.modifiers.includes("무효");
-    }
+const monsterMatches = [...monsterData, ...bossData].filter(m => {
+  const nameMatch = !terms.length || terms.some(term => normalize(m.name).includes(term));
+  const levelMatch = (!m.level || (m.level >= minLevel && m.level <= maxLevel));
 
-    // 지역 필터: 포함 여부 체크
-    let regionMatch = true;
-    if (region) {
-      regionMatch = m.region && m.region.includes(region);
-    }
+  // 약점 필터
+  let weaknessMatch = true;
+  if (weakness) {
+    weaknessMatch = m.modifiers &&
+                    m.modifiers.includes(weakness) &&
+                    !m.modifiers.includes("반감") &&
+                    !m.modifiers.includes("무효");
+  }
 
-    return nameMatch && levelMatch && weaknessMatch && regionMatch;
-  });
+  // 지역 필터
+  let regionMatch = true;
+  if (region) {
+    regionMatch = m.region && m.region.includes(region);
+  }
+
+  // 보스 필터 (bossOnly 체크되면 bossData 에 포함된 것만 허용)
+  let bossMatch = true;
+  if (bossOnly) {
+    bossMatch = bossData.includes(m);
+  }
+
+  return nameMatch && levelMatch && weaknessMatch && regionMatch && bossMatch;
+});
 
   // 🔽 아이템 매치 (검색어 있을 때만)
   const itemMatches = {};
@@ -703,6 +714,7 @@ document.addEventListener('click', e => {
   </script>
 </body>
 </html>
+
 
 
 
