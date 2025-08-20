@@ -12,182 +12,46 @@
       padding: 20px;
       transition: background-color 0.3s, color 0.3s;
     }
-    body.dark-mode {
-      background-color: #121212;
-      color: #eee;
-    }
-    .container {
-      max-width: 1100px;
-      margin: auto;
-      background: white;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 8px rgba(0,0,0,0.1);
-      position: relative;
-    }
-    body.dark-mode .container {
-      background: #1e1e1e;
-    }
-    input[type=text] {
-      width: 60%;
-      padding: 10px;
-      margin-right: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    body.dark-mode input[type=text] {
-      background: #333;
-      border: 1px solid #555;
-      color: #eee;
-    }
-    button {
-      padding: 10px 15px;
-      cursor: pointer;
-      border: none;
-      border-radius: 4px;
-      background-color: #4CAF50;
-      color: white;
-      font-weight: bold;
-    }
-    button:hover {
-      background-color: #45a049;
-    }
-    #darkModeToggle {
-      background-color: #2196F3;
-      margin-left: 10px;
-    }
-    #darkModeToggle:hover {
-      background-color: #1976D2;
-    }
-    .result-item {
-      display: flex;
-      align-items: center;
-      border-bottom: 1px solid #ddd;
-      padding: 15px 0;
-      cursor: pointer;
-      min-height: 70px;
-    }
-    body.dark-mode .result-item {
-      border-color: #444;
-    }
-    .result-item img {
-      width: 50px;
-      height: auto;
-      margin-right: 15px;
-    }
-    mark {
-      background-color: yellow;
-      font-weight: bold;
-      padding: 0 3px;
-    }
-    body.dark-mode mark {
-      background-color: #ffda6a;
-    }
-    .content-wrapper {
-      display: flex;
-      gap: 30px;
-    }
-    #results {
-      flex: 1;
-      max-width: 45%;
-    }
-    #details {
-      flex: 1;
-      border-left: 1px solid #ccc;
-      padding-left: 20px;
-    }
-    body.dark-mode #details {
-      border-color: #444;
-    }
-    .drop-item {
-      display: flex;
-      align-items: center;
-      margin-bottom: 5px;
-      min-height: 40px;
-    }
-    .drop-item img {
-      width: 40px;
-      height: auto;
-      margin-right: 10px;
-    }
-    .drop-item .drop-link {
-      cursor: pointer;
-      color: #0066cc;
-      text-decoration: none !important;   /* underline removed */
-    }
-    /* remove underline in item detail links */
-    #details a {
-      text-decoration: none !important;
-      cursor: pointer;
-      color: #0066cc;
-    }
-    #details a:hover {
-      text-decoration: underline !important;
-    }
-    /* dark mode neutral tone */
-    body.dark-mode .drop-item .drop-link,
-    body.dark-mode #details a {
-      color: #a1ccd9 !important;
-    }
-    #details ul li {
-      display: flex;
-      align-items: center;
-      margin-bottom: 12px;
-    }
-    #details ul li img {
-      width: 30px;
-      height: 30px;
-      object-fit: contain;
-      margin-right: 10px;
-    }
-    }
-    .top-right-button {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background-color: #ff7043;
-    }
-    .top-right-button:hover {
-      background-color: #e55d2e;
-    }
-    #autocompleteList {
-      position: absolute;
-      background: white;
-      z-index: 1000;
-      list-style: none;
-      padding: 10px;
-      margin: 0;
-      width: 60%;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      max-height: 300px;
-      overflow-y: auto;
-      display: none;
-    }
-    body.dark-mode #autocompleteList {
-      background-color: #2b2b2b;
-      border: 1px solid #555;
-    }
-    body.dark-mode #autocompleteList li {
-      color: #ddd;
-    }
-    body.dark-mode #autocompleteList li strong {
-      color: #fff;
-    }
-    body.dark-mode #autocompleteList li:hover {
-      background-color: #3a3a3a;
-    }
-    #autocompleteList li {
-      padding: 5px 0;
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-    }
-    #autocompleteList li img {
-      max-width: 30px;
-      max-height: 30px;
-      margin-right: 10px;
-    }
+    body.dark-mode { background-color: #121212; color: #eee; }
+    .container { max-width: 1100px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 8px rgba(0,0,0,0.1); position: relative; }
+    body.dark-mode .container { background: #1e1e1e; }
+    input[type=text] { width: 60%; padding: 10px; margin-right: 10px; border: 1px solid #ccc; border-radius: 4px; }
+    body.dark-mode input[type=text] { background: #333; border: 1px solid #555; color: #eee; }
+    button { padding: 10px 15px; cursor: pointer; border: none; border-radius: 4px; font-weight: bold; }
+    #searchBtn { background-color: #4CAF50; color: white; }
+    #filterToggle { background-color: #f39c12; color: white; margin-left: 10px; }
+    #darkModeToggle { background-color: #2196F3; color: white; margin-left: 10px; }
+    .result-item { display: flex; align-items: center; border-bottom: 1px solid #ddd; padding: 15px 0; cursor: pointer; min-height: 70px; }
+    body.dark-mode .result-item { border-color: #444; }
+    .result-item img { width: 50px; margin-right: 15px; }
+    mark { background-color: yellow; font-weight: bold; padding: 0 3px; }
+    body.dark-mode mark { background-color: #ffda6a; }
+    .content-wrapper { display: flex; gap: 30px; }
+    #results { flex: 1; max-width: 45%; }
+    #details { flex: 1; border-left: 1px solid #ccc; padding-left: 20px; }
+    body.dark-mode #details { border-color: #444; }
+    .drop-item { display: flex; align-items: center; margin-bottom: 5px; min-height: 40px; }
+    .drop-item img { width: 40px; margin-right: 10px; }
+    .drop-item .drop-link { cursor: pointer; color: #0066cc; text-decoration: none !important; }
+    #details a { text-decoration: none !important; cursor: pointer; color: #0066cc; }
+    #details a:hover { text-decoration: underline !important; }
+    body.dark-mode .drop-item .drop-link, body.dark-mode #details a { color: #a1ccd9 !important; }
+    #details ul li { display: flex; align-items: center; margin-bottom: 12px; }
+    #details ul li img { width: 30px; height: 30px; object-fit: contain; margin-right: 10px; }
+    #autocompleteList li.selected { background-color: #f0f0f0; }
+    .top-right-button { position: absolute; top: 20px; right: 20px; background-color: #ff7043; }
+    .top-right-button:hover { background-color: #e55d2e; }
+    #autocompleteList { position: absolute; background: white; z-index: 1000; list-style: none; padding: 10px; margin: 0; width: 60%; border: 1px solid #ccc; border-radius: 4px; max-height: 300px; overflow-y: auto; display: none; }
+    body.dark-mode #autocompleteList { background-color: #2b2b2b; border: 1px solid #555; }
+    body.dark-mode #autocompleteList li { color: #ddd; }
+    body.dark-mode #autocompleteList li strong { color: #fff; }
+    body.dark-mode #autocompleteList li:hover { background-color: #3a3a3a; }
+    #autocompleteList li { padding: 5px 0; display: flex; align-items: center; cursor: pointer; }
+    #autocompleteList li img { max-width: 30px; max-height: 30px; margin-right: 10px; }
+    /* 🔽 Filters */
+    #filters { display: none; margin: 15px 0; padding: 10px; border: 1px solid #ccc; border-radius: 6px; background: #f5f5f5; }
+    body.dark-mode #filters { background: #2b2b2b; border: 1px solid #555; }
+    #filters label { margin-right: 15px; }
   </style>
 </head>
 <body>
@@ -198,19 +62,56 @@
       <input type="text" id="searchInput" placeholder="Enter keyword(s) (e.g. snail)">
       <ul id="autocompleteList"></ul>
       <button id="searchBtn">Search</button>
+      <button id="filterToggle">⚙️ Filter</button>
       <button id="darkModeToggle">🌙 Dark Mode</button>
     </div>
+
+    <!-- 🔽 Filters -->
+    <div id="filters">
+      <label>
+        Level:
+        <select id="levelRange">
+          <option value="">All</option><option value="1-10">1–10</option><option value="11-20">11–20</option>
+          <option value="21-30">21–30</option><option value="31-40">31–40</option><option value="41-50">41–50</option>
+          <option value="51-60">51–60</option><option value="61-70">61–70</option><option value="71-80">71–80</option>
+          <option value="81-90">81–90</option><option value="91-100">91–100</option><option value="101-120">101–120</option>
+          <option value="121-130">121–130</option><option value="130+">130+</option>
+        </select>
+      </label>
+      <label>
+        Weakness:
+        <select id="weaknessSelect">
+          <option value="">All</option><option value="Fire">Fire</option><option value="Ice">Ice</option>
+          <option value="Lightning">Lightning</option><option value="Holy">Holy</option><option value="Poison">Poison</option>
+          <option value="Heal">Can be healed</option>
+        </select>
+      </label>
+      <label>
+        Region:
+        <select id="regionSelect">
+          <option value="">All</option><option value="Victoria Island">Victoria Island</option><option value="Orbis">Orbis</option>
+          <option value="El Nath">El Nath</option><option value="Ludibrium">Ludibrium</option><option value="Leafre">Leafre</option>
+          <option value="Temple of Time">Temple of Time</option><option value="Japan">Japan</option><option value="Shanghai">Shanghai</option>
+          <option value="Taiwan">Taiwan</option><option value="Thailand">Thailand</option>
+        </select>
+      </label>
+      <label><input type="checkbox" id="bossOnly"> Boss monsters only</label>
+    </div>
+    <p id="filterNotice" style="font-size:14px; color:#666; margin-top:5px; display:none;">
+      Set conditions and press <strong>Search</strong>.
+    </p>
+
     <div class="content-wrapper">
       <div id="results"></div>
       <div id="details"></div>
     </div>
   </div>
+
   <script>
     let monsterData = [], bossData = [];
     const monsterImagePath = "images/monsters/";
     const itemImagePath = "images/items/";
 
-    // corrected escapeHtml regex and mapping
     const escapeHtml = text => text?.replace(/[&<>\"'\/]/g, c =>
       ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;', '/': '&#x2F;' }[c])
     ) || '';
@@ -229,15 +130,14 @@
     const getImageElement = (path, name, isItem = false) => {
       const img = document.createElement('img');
       img.alt = name;
-      const filename = isItem
-        ? getItemImageName(name)
-        : stripGender(name).replace(/\s+/g, '_');
+      const filename = isItem ? getItemImageName(name) : stripGender(name).replace(/\s+/g, '_');
       img.src = path + filename + '.png';
       img.onerror = () => { img.onerror = null; img.src = path + filename + '.gif'; };
       return img;
     };
 
     const highlightKeyword = (text, keyword) => {
+      if (!keyword) return escapeHtml(text);
       const regex = new RegExp(`(${keyword})`, 'gi');
       return escapeHtml(text).replace(regex, '<mark>$1</mark>');
     };
@@ -253,235 +153,156 @@
 
     function unifiedSearch() {
       const keywordRaw = document.getElementById('searchInput').value.trim();
-      if (!keywordRaw) return alert("Please enter a search term.");
-      const terms = keywordRaw.toLowerCase().split(',').map(t => normalize(t.trim()));
+      const terms = keywordRaw ? keywordRaw.toLowerCase().split(',').map(t => normalize(t.trim())) : [];
       const resultsContainer = document.getElementById('results');
       resultsContainer.innerHTML = '';
       document.getElementById('details').innerHTML = '';
 
-      const monsterMatches = [...monsterData, ...bossData].filter(m =>
-        terms.some(term => normalize(m.name).includes(term))
-      );
+      // 🔽 Filter values
+      const levelRange = document.getElementById('levelRange').value;
+      const weakness   = document.getElementById('weaknessSelect').value;
+      const region     = document.getElementById('regionSelect').value;
+      const bossOnly   = document.getElementById('bossOnly').checked;
 
-      const itemMatches = {};
-      [...monsterData, ...bossData].forEach(m => {
-        (m.drops || []).forEach(drop => {
-          const normDrop = normalize(drop);
-          if (terms.some(term => normDrop.includes(term))) {
-            if (!itemMatches[drop]) itemMatches[drop] = [];
-            itemMatches[drop].push(m);
-          }
-        });
+      let minLevel=0,maxLevel=Infinity;
+      if (levelRange && levelRange.includes('-')) {
+        const [min,max]=levelRange.split('-').map(n=>parseInt(n,10));
+        minLevel=min; maxLevel=max;
+      } else if (levelRange==="130+") { minLevel=130; }
+
+      const monsterMatches=[...monsterData,...bossData].filter(m=>{
+        const nameMatch=!terms.length||terms.some(t=>normalize(m.name).includes(t));
+        const levelMatch=!m.level||(m.level>=minLevel&&m.level<=maxLevel);
+        let weaknessMatch=true; if(weakness) weaknessMatch=m.modifiers&&m.modifiers.includes(weakness);
+        let regionMatch=true; if(region) regionMatch=m.region&&m.region.includes(region);
+        let bossMatch=true; if(bossOnly) bossMatch=bossData.includes(m);
+        return nameMatch&&levelMatch&&weaknessMatch&&regionMatch&&bossMatch;
       });
 
+      const itemMatches={};
+      if (terms.length) {
+        [...monsterData,...bossData].forEach(m=>(m.drops||[]).forEach(drop=>{
+          const normDrop=normalize(drop);
+          if(terms.some(t=>normDrop.includes(t))){
+            if(!itemMatches[drop]) itemMatches[drop]=[];
+            itemMatches[drop].push(m);
+          }
+        }));
+      }
+
       if (monsterMatches.length) {
-        const title = document.createElement('h2');
-        title.textContent = `🧟 Monsters (${monsterMatches.length})`;
-        resultsContainer.appendChild(title);
-        monsterMatches.forEach(monster => {
-          const div = document.createElement('div');
-          div.classList.add('result-item');
+        const h=document.createElement('h2'); h.textContent=`🧟 Monsters (${monsterMatches.length})`;
+        resultsContainer.appendChild(h);
+        monsterMatches.forEach(monster=>{
+          const div=document.createElement('div'); div.classList.add('result-item');
           div.appendChild(getImageElement(monsterImagePath, monster.name));
-          const span = document.createElement('span');
-          span.innerHTML = highlightKeyword(monster.name, keywordRaw);
+          const span=document.createElement('span');
+          span.innerHTML=keywordRaw?highlightKeyword(monster.name,keywordRaw):escapeHtml(monster.name);
           div.appendChild(span);
-          div.addEventListener('click', () => showMonsterDetail(monster));
+          div.addEventListener('click',()=>showMonsterDetail(monster));
           resultsContainer.appendChild(div);
         });
       }
 
-      const itemKeys = Object.keys(itemMatches);
-      if (itemKeys.length) {
-        const title = document.createElement('h2');
-        title.textContent = `🎁 Items (${itemKeys.length})`;
-        resultsContainer.appendChild(title);
-        itemKeys.forEach(item => {
-          const div = document.createElement('div');
-          div.classList.add('result-item');
-          div.appendChild(getImageElement(itemImagePath, item, true));
-          const span = document.createElement('span');
-          span.innerHTML = highlightKeyword(item, keywordRaw);
+      const itemKeys=Object.keys(itemMatches);
+      if(itemKeys.length){
+        const h=document.createElement('h2'); h.textContent=`🎁 Items (${itemKeys.length})`;
+        resultsContainer.appendChild(h);
+        itemKeys.forEach(item=>{
+          const div=document.createElement('div'); div.classList.add('result-item');
+          div.appendChild(getImageElement(itemImagePath,item,true));
+          const span=document.createElement('span'); span.innerHTML=highlightKeyword(item,keywordRaw);
           div.appendChild(span);
-          div.addEventListener('click', () => showItemDetail(item, itemMatches[item]));
+          div.addEventListener('click',()=>showItemDetail(item,itemMatches[item]));
           resultsContainer.appendChild(div);
         });
       }
 
-      if (!monsterMatches.length && !itemKeys.length) {
-        resultsContainer.innerHTML = "<p>No results found.</p>";
-      }
-    }
-
-    function handleDropClick(itemName) {
-      document.getElementById('searchInput').value = itemName;
-      unifiedSearch();
-      const matches = [...monsterData, ...bossData].filter(m => (m.drops||[]).includes(itemName));
-      showItemDetail(itemName, matches);
+      if(!monsterMatches.length&&!itemKeys.length){ resultsContainer.innerHTML="<p>No results found.</p>"; }
     }
 
     function showMonsterDetail(monster) {
-      const details = document.getElementById('details');
-      const dropsId  = `drop-list-${sanitizeName(monster.name)}`;
-      const filename = stripGender(monster.name).replace(/\s+/g, '_');
-      const imgSrc   = `${monsterImagePath}${filename}.png`;
-      const fallback = `${monsterImagePath}${filename}.gif`;
+      const details=document.getElementById('details');
+      const filename=stripGender(monster.name).replace(/\s+/g,'_');
+      const imgSrc=`${monsterImagePath}${filename}.png`;
+      const fallback=`${monsterImagePath}${filename}.gif`;
 
-      const minutesToHM = m => {
-        const h  = Math.floor(m / 60);
-        const mm = m % 60;
-        const parts = [];
-        if (h) parts.push(`${h}h`);
-        if (mm) parts.push(`${mm}m`);
-        return parts.join(' ') || '0m';
-      };
-
-      let respawnHtml = '';
-      if (monster.respawn_time != null) {
-        try {
-          let arr;
-          if (typeof monster.respawn_time === 'string' && monster.respawn_time.includes(',')) {
-            arr = monster.respawn_time.split(',').map(s => parseInt(s.trim(), 10));
-          } else if (Array.isArray(monster.respawn_time)) {
-            arr = monster.respawn_time.map(n => parseInt(n, 10));
-          } else {
-            arr = [ parseInt(monster.respawn_time, 10) ];
-          }
-          const from = minutesToHM(arr[0]);
-          const to   = arr[1] ? minutesToHM(arr[1]) : null;
-          respawnHtml = to
-            ? `<p><strong>Respawn Time:</strong> ${from} to ${to}</p>`
-            : `<p><strong>Respawn Time:</strong> ${from}</p>`;
-        } catch (e) {
-          console.warn('Failed to parse respawn_time:', monster.respawn_time, e);
-        }
-      }
-
-      details.innerHTML = `
+      details.innerHTML=`
         <h2>${escapeHtml(monster.name)}</h2>
         <img src="${imgSrc}" onerror="this.onerror=null;this.src='${fallback}';" alt="${escapeHtml(monster.name)}">
-        <p><strong>Level:</strong> ${monster.level  || 'N/A'}</p>
-        <p><strong>HP:</strong>    ${monster.hp     || 'N/A'}</p>
-        <p><strong>Region:</strong>    ${monster.region || 'N/A'}</p>
-        <p><strong>EXP:</strong>   ${monster.exp    || 'N/A'}</p>
-        ${respawnHtml}
-        <p><strong>Modifiers:</strong> ${monster.modifiers || 'N/A'}</p>
-        <p><strong>Required Accuracy:</strong> ${monster.required_accuracy || 'N/A'} ${monster.accuracy_level_decrease != null ? `(1 level decrease +${monster.accuracy_level_decrease})` : ''}</p>
-        <div id="${dropsId}" style="margin-top:10px;">
-          ${(monster.drops || []).map(drop => `
+        <p><strong>Level:</strong> ${monster.level||'N/A'}</p>
+        <p><strong>HP:</strong> ${monster.hp||'N/A'}</p>
+        <p><strong>Region:</strong> ${monster.region||'N/A'}</p>
+        <p><strong>EXP:</strong> ${monster.exp||'N/A'}</p>
+        <p><strong>Modifiers:</strong> ${monster.modifiers||'N/A'}</p>
+        <p><strong>Required Accuracy:</strong> ${monster.required_accuracy||'N/A'}</p>
+        <div style="margin-top:10px;">
+          ${(monster.drops||[]).map(drop=>`
             <div class="drop-item">
-              <img src="${itemImagePath + getItemImageName(drop)}.png" onerror="this.onerror=null;this.src='${itemImagePath + getItemImageName(drop)}.gif';" alt="${escapeHtml(drop)}">
-              <a href="#" class="drop-link" onclick="handleDropClick('${escapeHtml(drop)}');return false;">${escapeHtml(drop)}</a>
-            </div>
-          `).join('')}
-        </div>
-      `;
+              <img src="${itemImagePath+getItemImageName(drop)}.png" onerror="this.onerror=null;this.src='${itemImagePath+getItemImageName(drop)}.gif';" alt="${escapeHtml(drop)}">
+              <a href="#" class="drop-link" onclick="document.getElementById('searchInput').value='${escapeHtml(drop)}'; unifiedSearch(); return false;">${escapeHtml(drop)}</a>
+            </div>`).join('')}
+        </div>`;
     }
 
-    function toggleDrops(id, btn) {
-      const el = document.getElementById(id);
-      const isVisible = el.style.display === 'block';
-      el.style.display = isVisible ? 'none' : 'block';
-      btn.textContent = isVisible ? 'Show Drops' : 'Hide Drops';
+    function showItemDetail(item,monsters){
+      const details=document.getElementById('details'); details.innerHTML='';
+      details.appendChild(getImageElement(itemImagePath,item,true));
+      const h=document.createElement('h2'); h.textContent=item; details.appendChild(h);
+      const sub=document.createElement('div'); sub.innerHTML="<p><strong>Drop Monsters:</strong></p>";
+      const ul=document.createElement('ul');
+      monsters.forEach(m=>{
+        const li=document.createElement('li'); li.style.display='flex'; li.style.alignItems='center'; li.style.marginBottom='8px';
+        const img=getImageElement(monsterImagePath,m.name); img.style.width='30px'; img.style.marginRight='8px'; li.appendChild(img);
+        const a=document.createElement('a'); a.href='#'; a.textContent=`${m.name} (Lv: ${m.level||'N/A'}, Region: ${m.region||'N/A'})`;
+        a.addEventListener('click',e=>{ e.preventDefault(); document.getElementById('searchInput').value=m.name; unifiedSearch(); showMonsterDetail(m); });
+        li.appendChild(a); ul.appendChild(li);
+      });
+      sub.appendChild(ul); details.appendChild(sub);
     }
 
-   function showItemDetail(item, monsters) {
-  const details = document.getElementById('details');
-  details.innerHTML = '';
-  details.appendChild(getImageElement(itemImagePath, item, true));
-
-  const title = document.createElement('h2');
-  title.textContent = item;
-  details.appendChild(title);
-
-  const sub = document.createElement('div');
-  sub.innerHTML = `<p><strong>Drop Monsters:</strong></p>`;
-
-  const ul = document.createElement('ul');
-  monsters.forEach(m => {
-    const li = document.createElement('li');
-    li.style.display = 'flex';
-    li.style.alignItems = 'center';
-    li.style.marginBottom = '8px';
-
-    const img = getImageElement(monsterImagePath, m.name);
-    img.style.width = '30px';
-    img.style.marginRight = '8px';
-    li.appendChild(img);
-
-    const link = document.createElement('a');
-    link.href = '#';
-    link.textContent = `${m.name} (Lv: ${m.level || 'N/A'}, Region: ${m.region || 'N/A'})`;
-    link.style.textDecoration = 'none';
-    link.style.color = '#2196F3';
-
-    link.addEventListener('click', e => {
-      e.preventDefault();
-      // 1) 검색창 세팅
-      document.getElementById('searchInput').value = m.name;
-      // 2) unifiedSearch로 좌측 결과 갱신
-      unifiedSearch();
-      // 3) 해당 몬스터 상세정보 출력
-      showMonsterDetail(m);
-    });
-
-    li.appendChild(link);
-    ul.appendChild(li);
-  });
-
-  sub.appendChild(ul);
-  details.appendChild(sub);
-}
-
-    document.getElementById('searchBtn').addEventListener('click', unifiedSearch);
-    document.getElementById('searchInput').addEventListener('keydown', e => { if (e.key === 'Enter') unifiedSearch(); });
-    document.getElementById('darkModeToggle').addEventListener('click', () => {
-      document.body.classList.toggle('dark-mode');
-      const isDark = document.body.classList.contains('dark-mode');
-      localStorage.setItem('darkMode', isDark);
-      document.getElementById('darkModeToggle').textContent = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
-    });
-    if (localStorage.getItem('darkMode') === 'true') {
-      document.body.classList.add('dark-mode');
-      document.getElementById('darkModeToggle').textContent = '☀️ Light Mode';
-    }
-
-    document.getElementById('searchInput').addEventListener('input', function() {
-      const query = this.value.trim().toLowerCase();
-      const autocompleteList = document.getElementById('autocompleteList');
-      autocompleteList.innerHTML = '';
-      autocompleteList.style.display = 'none';
-      if (!query) return;
-      const monsterMatches = [...monsterData, ...bossData].filter(m => stripGender(m.name).toLowerCase().includes(query));
-      const itemSet = new Set();
-      [...monsterData, ...bossData].forEach(m => (m.drops || []).forEach(d => { if (stripGender(d).toLowerCase().includes(query)) itemSet.add(d); }));
-      if (!monsterMatches.length && !itemSet.size) return;
-      autocompleteList.style.display = 'block';
-      const addSection = (title, items, isItem = false) => {
-        if (!items.length) return;
-        const header = document.createElement('li');
-        header.innerHTML = `<strong>${title}</strong>`;
-        header.style.padding = '5px';
-        header.style.borderBottom = '1px solid #ccc';
-        autocompleteList.appendChild(header);
-        items.forEach(item => {
-          const li = document.createElement('li');
-          const img = getImageElement(isItem ? itemImagePath : monsterImagePath, item.name || item, isItem);
-          const span = document.createElement('span');
-          span.textContent = item.name || item;
-          li.appendChild(img); li.appendChild(span);
-          li.addEventListener('click', () => { document.getElementById('searchInput').value = item.name || item; autocompleteList.style.display = 'none'; unifiedSearch(); });
-          autocompleteList.appendChild(li);
+    // Autocomplete
+    document.getElementById('searchInput').addEventListener('input',function(){
+      const query=this.value.trim().toLowerCase();
+      const list=document.getElementById('autocompleteList');
+      list.innerHTML=''; list.style.display='none'; if(!query) return;
+      const monsterMatches=[...monsterData,...bossData].filter(m=>stripGender(m.name).toLowerCase().includes(query));
+      const itemSet=new Set(); [...monsterData,...bossData].forEach(m=>(m.drops||[]).forEach(d=>{ if(stripGender(d).toLowerCase().includes(query)) itemSet.add(d); }));
+      if(!monsterMatches.length&&!itemSet.size) return;
+      list.style.display='block';
+      const addSection=(title,items,isItem=false)=>{
+        if(!items.length) return;
+        const header=document.createElement('li'); header.innerHTML=`<strong>${title}</strong>`; header.style.padding='5px'; header.style.borderBottom='1px solid #ccc'; list.appendChild(header);
+        items.forEach((item,idx)=>{
+          const li=document.createElement('li'); const img=getImageElement(isItem?itemImagePath:monsterImagePath,item.name||item,isItem);
+          const span=document.createElement('span'); span.textContent=item.name||item; li.appendChild(img); li.appendChild(span);
+          if(idx===0) li.classList.add('selected'); // ✅ 첫번째 자동 선택
+          li.addEventListener('click',()=>{ document.getElementById('searchInput').value=item.name||item; list.style.display='none'; unifiedSearch(); });
+          list.appendChild(li);
         });
       };
-      addSection('Monsters', monsterMatches.slice(0, 10));
-      addSection('Items', Array.from(itemSet).slice(0, 10), true);
+      addSection('Monsters',monsterMatches.slice(0,10));
+      addSection('Items',Array.from(itemSet).slice(0,10),true);
     });
 
-    document.addEventListener('click', e => {
-      const target = e.target;
-      const list = document.getElementById('autocompleteList');
-      if (!list.contains(target) && target.id !== 'searchInput') list.style.display = 'none';
+    // 엔터 → 무조건 검색 + 자동완성 닫기
+    document.getElementById('searchInput').addEventListener('keydown',function(e){
+      if(e.key==='Enter'){ unifiedSearch(); document.getElementById('autocompleteList').style.display='none'; e.preventDefault(); }
     });
+
+    document.getElementById('searchBtn').addEventListener('click',unifiedSearch);
+    document.getElementById('filterToggle').addEventListener('click',()=>{
+      const f=document.getElementById('filters'); const notice=document.getElementById('filterNotice');
+      const isHidden=(f.style.display==='none'||!f.style.display);
+      f.style.display=isHidden?'block':'none'; notice.style.display=isHidden?'block':'none';
+    });
+    document.getElementById('darkModeToggle').addEventListener('click',()=>{
+      document.body.classList.toggle('dark-mode');
+      const isDark=document.body.classList.contains('dark-mode');
+      localStorage.setItem('darkMode',isDark);
+      document.getElementById('darkModeToggle').textContent=isDark?'☀️ Light Mode':'🌙 Dark Mode';
+    });
+    if(localStorage.getItem('darkMode')==='true'){ document.body.classList.add('dark-mode'); document.getElementById('darkModeToggle').textContent='☀️ Light Mode'; }
 
     loadData();
   </script>
