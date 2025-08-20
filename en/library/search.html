@@ -227,52 +227,114 @@
       if(!monsterMatches.length&&!itemKeys.length){ resultsContainer.innerHTML="<p>No results found.</p>"; }
     }
 
-    function showMonsterDetail(monster) {
-      const details=document.getElementById('details');
-      const filename=stripGender(monster.name).replace(/\s+/g,'_');
-      const imgSrc=`${monsterImagePath}${filename}.png`;
-      const fallback=`${monsterImagePath}${filename}.gif`;
+  function showMonsterDetail(monster) {
+  const details = document.getElementById('details');
+  const dropsId  = `drop-list-${sanitizeName(monster.name)}`;
+  const filename = stripGender(monster.name).replace(/\s+/g, '_');
+  const imgSrc   = `${monsterImagePath}${filename}.png`;
+  const fallback = `${monsterImagePath}${filename}.gif`;
 
-      let extraInfo = '';
-      if (monster.isBoss) {
-        extraInfo = respawnHtml;   // 보스 → 리스폰 시간
+  const minutesToHM = m => {
+    const h  = Math.floor(m / 60);
+    const mm = m % 60;
+    const parts = [];
+    if (h) parts.push(`${h}h`);
+    if (mm) parts.push(`${mm}m`);
+    return parts.join(' ') || '0m';
+  };
+
+  let respawnHtml = '';
+  if (monster.respawn_time != null) {
+    try {
+      let arr;
+      if (typeof monster.respawn_time === 'string' && monster.respawn_time.includes(',')) {
+        arr = monster.respawn_time.split(',').map(s => parseInt(s.trim(), 10));
+      } else if (Array.isArray(monster.respawn_time)) {
+        arr = monster.respawn_time.map(n => parseInt(n, 10));
       } else {
-        extraInfo = `<p><strong>Required Accuracy:</strong> ${monster.required_accuracy || 'N/A'}</p>`;
+        arr = [ parseInt(monster.respawn_time, 10) ];
       }
-
-      details.innerHTML = `
-        <h2>${escapeHtml(monster.name)}</h2>
-        <img src="${imgSrc}" ... >
-        <p><strong>Level:</strong> ${monster.level||'N/A'}</p>
-        <p><strong>HP:</strong> ${monster.hp||'N/A'}</p>
-        <p><strong>Region:</strong> ${monster.region||'N/A'}</p>
-        <p><strong>EXP:</strong> ${monster.exp||'N/A'}</p>
-        <p><strong>Modifiers:</strong> ${monster.modifiers||'N/A'}</p>
-        ${extraInfo} 
-        <div style="margin-top:10px;">
-          ${(monster.drops||[]).map(drop=>`
-            <div class="drop-item">
-              <img src="${itemImagePath+getItemImageName(drop)}.png" onerror="this.onerror=null;this.src='${itemImagePath+getItemImageName(drop)}.gif';" alt="${escapeHtml(drop)}">
-              <a href="#" class="drop-link" onclick="document.getElementById('searchInput').value='${escapeHtml(drop)}'; unifiedSearch(); return false;">${escapeHtml(drop)}</a>
-            </div>`).join('')}
-        </div>`;
+      const from = minutesToHM(arr[0]);
+      const to   = arr[1] ? minutesToHM(arr[1]) : null;
+      respawnHtml = to
+        ? `<p><strong>Respawn Time:</strong> ${from} to ${to}</p>`
+        : `<p><strong>Respawn Time:</strong> ${from}</p>`;
+    } catch (e) {
+      console.warn('Failed to parse respawn_time:', monster.respawn_time, e);
     }
+  }
 
-    function showItemDetail(item,monsters){
-      const details=document.getElementById('details'); details.innerHTML='';
-      details.appendChild(getImageElement(itemImagePath,item,true));
-      const h=document.createElement('h2'); h.textContent=item; details.appendChild(h);
-      const sub=document.createElement('div'); sub.innerHTML="<p><strong>Drop Monsters:</strong></p>";
-      const ul=document.createElement('ul');
-      monsters.forEach(m=>{
-        const li=document.createElement('li'); li.style.display='flex'; li.style.alignItems='center'; li.style.marginBottom='8px';
-        const img=getImageElement(monsterImagePath,m.name); img.style.width='30px'; img.style.marginRight='8px'; li.appendChild(img);
-        const a=document.createElement('a'); a.href='#'; a.textContent=`${m.name} (Lv: ${m.level||'N/A'}, Region: ${m.region||'N/A'})`;
-        a.addEventListener('click',e=>{ e.preventDefault(); document.getElementById('searchInput').value=m.name; unifiedSearch(); showMonsterDetail(m); });
-        li.appendChild(a); ul.appendChild(li);
-      });
-      sub.appendChild(ul); details.appendChild(sub);
-    }
+  details.innerHTML = `
+    <h2>${escapeHtml(monster.name)}</h2>
+    <img src="${imgSrc}" onerror="this.onerror=null;this.src='${fallback}';" alt="${escapeHtml(monster.name)}">
+    <p><strong>Level:</strong> ${monster.level  || 'N/A'}</p>
+    <p><strong>HP:</strong>    ${monster.hp     || 'N/A'}</p>
+    <p><strong>Region:</strong>    ${monster.region || 'N/A'}</p>
+    <p><strong>EXP:</strong>   ${monster.exp    || 'N/A'}</p>
+    ${respawnHtml}
+    <p><strong>Modifiers:</strong> ${monster.modifiers || 'N/A'}</p>
+    <p><strong>Required Accuracy:</strong> ${monster.required_accuracy || 'N/A'} ${monster.accuracy_level_decrease != null ? `(1 level decrease +${monster.accuracy_level_decrease})` : ''}</p>
+    <div id="${dropsId}" style="margin-top:10px;">
+      ${(monster.drops || []).map(drop => `
+        <div class="drop-item">
+          <img src="${itemImagePath + getItemImageName(drop)}.png" onerror="this.onerror=null;this.src='${itemImagePath + getItemImageName(drop)}.gif';" alt="${escapeHtml(drop)}">
+          <a href="#" class="drop-link" onclick="handleDropClick('${escapeHtml(drop)}');return false;">${escapeHtml(drop)}</a>
+        </div>
+      `).join('')}
+    </div>
+  `;
+
+  // ✅ 상세정보를 열면 위로 부드럽게 스크롤
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+  function showItemDetail(item, monsters) {
+  const details = document.getElementById('details');
+  details.innerHTML = '';
+  details.appendChild(getImageElement(itemImagePath, item, true));
+
+  const title = document.createElement('h2');
+  title.textContent = item;
+  details.appendChild(title);
+
+  const sub = document.createElement('div');
+  sub.innerHTML = `<p><strong>Drop Monsters:</strong></p>`;
+
+  const ul = document.createElement('ul');
+  monsters.forEach(m => {
+    const li = document.createElement('li');
+    li.style.display = 'flex';
+    li.style.alignItems = 'center';
+    li.style.marginBottom = '8px';
+
+    const img = getImageElement(monsterImagePath, m.name);
+    img.style.width = '30px';
+    img.style.marginRight = '8px';
+    li.appendChild(img);
+
+    const link = document.createElement('a');
+    link.href = '#';
+    link.textContent = `${m.name} (Lv: ${m.level || 'N/A'}, Region: ${m.region || 'N/A'})`;
+    link.style.textDecoration = 'none';
+    link.style.color = '#2196F3';
+
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      document.getElementById('searchInput').value = m.name;
+      unifiedSearch();
+      showMonsterDetail(m);
+    });
+
+    li.appendChild(link);
+    ul.appendChild(li);
+  });
+
+  sub.appendChild(ul);
+  details.appendChild(sub);
+
+  // ✅ 아이템 상세를 열면 위로 부드럽게 스크롤
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 
     // Autocomplete
     document.getElementById('searchInput').addEventListener('input',function(){
