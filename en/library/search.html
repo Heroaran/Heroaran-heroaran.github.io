@@ -173,7 +173,13 @@
       const monsterMatches=[...monsterData,...bossData].filter(m=>{
         const nameMatch=!terms.length||terms.some(t=>normalize(m.name).includes(t));
         const levelMatch=!m.level||(m.level>=minLevel&&m.level<=maxLevel);
-        let weaknessMatch=true; if(weakness) weaknessMatch=m.modifiers&&m.modifiers.includes(weakness);
+       let weaknessMatch = true;
+      if (weakness) {
+        weaknessMatch = m.modifiers 
+          && m.modifiers.includes(weakness) 
+          && !m.modifiers.includes("Resist") 
+          && !m.modifiers.includes("Immune");
+      }
         let regionMatch=true; if(region) regionMatch=m.region&&m.region.includes(region);
         let bossMatch=true; if(bossOnly) bossMatch=bossData.includes(m);
         return nameMatch&&levelMatch&&weaknessMatch&&regionMatch&&bossMatch;
@@ -227,15 +233,22 @@
       const imgSrc=`${monsterImagePath}${filename}.png`;
       const fallback=`${monsterImagePath}${filename}.gif`;
 
-      details.innerHTML=`
+      let extraInfo = '';
+      if (monster.isBoss) {
+        extraInfo = respawnHtml;   // 보스 → 리스폰 시간
+      } else {
+        extraInfo = `<p><strong>Required Accuracy:</strong> ${monster.required_accuracy || 'N/A'}</p>`;
+      }
+
+      details.innerHTML = `
         <h2>${escapeHtml(monster.name)}</h2>
-        <img src="${imgSrc}" onerror="this.onerror=null;this.src='${fallback}';" alt="${escapeHtml(monster.name)}">
+        <img src="${imgSrc}" ... >
         <p><strong>Level:</strong> ${monster.level||'N/A'}</p>
         <p><strong>HP:</strong> ${monster.hp||'N/A'}</p>
         <p><strong>Region:</strong> ${monster.region||'N/A'}</p>
         <p><strong>EXP:</strong> ${monster.exp||'N/A'}</p>
         <p><strong>Modifiers:</strong> ${monster.modifiers||'N/A'}</p>
-        <p><strong>Required Accuracy:</strong> ${monster.required_accuracy||'N/A'}</p>
+        ${extraInfo} 
         <div style="margin-top:10px;">
           ${(monster.drops||[]).map(drop=>`
             <div class="drop-item">
