@@ -13340,7 +13340,7 @@
     "region": "Taipei 101, Taiwan"
  },
  {
-    "name": "냉염 퍼퓸",
+    "name": "Cool Perfume",
     "level": 67,
     "hp": 2000,
     "mp": 100,
@@ -13357,7 +13357,7 @@
       "Scroll for Topwear for DEF 60%",
       "Scroll for Cape for Magic DEF 60%",
       "Elixir",
-      "블루 퍼퓸",
+      "Blue Perfume",
       "Adamantium Ore",
       "Orihalcon Ore",
       "Diamond Ore",
@@ -13381,7 +13381,7 @@
     "region": "Taipei 101, Taiwan"
  },
    {
-    "name": "스위트하트 퍼퓸",
+    "name": "Sweetheart Perfume",
     "level": 65,
     "hp": 1800,
     "mp": 80,
@@ -13396,7 +13396,7 @@
     "drops": [
       "Scroll for Helmet for DEF 10%",
       "Scroll for Shoes for Jump 10%",
-      "핑크 퍼퓸",
+      "Pink Perfume",
       "STR Crystal Ore",
       "Bronze Ore",
       "Diamond Ore",
@@ -13422,7 +13422,7 @@
     "region": "Taipei 101, Taiwan"
  },
    {
-    "name": "백화 퍼퓸",
+    "name": "Flower Perfume",
     "level": 69,
     "hp": 2500,
     "mp": 150,
@@ -13440,7 +13440,7 @@
       "Blue Potion",
       "Wiazrd Potion",
       "Sunrise Dew",
-      "옐로우 퍼퓸",
+      "Yellow Perfume",
       "LUK Crystal Ore",
       "Bronze Ore",
       "Steel Ore",
@@ -13474,7 +13474,7 @@
     "region": "Taipei 101, Taiwan"
  },
   {
-    "name": "토끼귀신 인형",
+    "name": "Rabbit Doll",
     "level": 75,
     "hp": 8500,
     "mp": 500,
@@ -13490,7 +13490,7 @@
       "Scroll for Earring for INT 10%",
       "Scroll for Wand for Magic ATT 60%",
       "Scroll for Knuckler for ATT 60%",
-      "아이 마네킹의 토끼의상",
+      "Child Mannequin's Bunny Outfit",
       "STR Crystal Ore",
       "Black Scarab",
       "Golden Hinkel",
@@ -13518,7 +13518,7 @@
     "region": "Taipei 101, Taiwan"
  },
     {
-    "name": "인형 로즈",
+    "name": "Rose Doll",
     "level": 77,
     "hp": 8600,
     "mp": 530,
@@ -13534,7 +13534,7 @@
       "Power Elixir",
       "Sniper Potion",
       "Sniper Pill",
-      "여자 마네킹의 가발",
+      "Female Mannequin's Wig",
       "STR Crystal Ore",
       "Dark Crystal Ore",
       "Gold Ore",
@@ -13562,7 +13562,7 @@
     "region": "Taipei 101, Taiwan"
  },
     {
-    "name": "인형 잭",
+    "name": "Jack Doll",
     "level": 80,
     "hp": 9000,
     "mp": 550,
@@ -13580,7 +13580,7 @@
       "Power Elixir",
       "White Potion",
       "Mana Elixir",
-      "남자 마네킹의 페도라",
+      "Male Mannequin's Fedora",
       "STR Crystal Ore",
       "Orihalcon Ore",
       "Golden Hinkel",
@@ -13597,7 +13597,7 @@
     "region": "Taipei 101, Taiwan"
  },
    {
-    "name": "매직 앰프",
+    "name": "Magical Amplifier",
     "level": 70,
     "hp": 7700,
     "mp": 450,
@@ -13616,7 +13616,7 @@
       "Power Elixir",
       "Elixir",
       "Mana Elixir",
-      "싸구려 스피커",
+      "Cheap Speaker",
       "STR Crystal Ore",
       "INT Crystal Ore",
       "Steel Ore",
@@ -13642,7 +13642,7 @@
     "region": "Taipei 101, Taiwan"
  },
    {
-    "name": "매직 스피커",
+    "name": "Magical Stereo",
     "level": 74,
     "hp": 8000,
     "mp": 490,
@@ -13657,7 +13657,7 @@
     "drops": [
       "Scroll for Cape for LUK 60%",
       "Orange Potion",
-      "고급 앰프전선",
+      "Premium Amplifier Cable",
       "Dark Crystal Ore",
       "Gold Ore",
       "Emerald Ore",
@@ -13681,7 +13681,7 @@
     "region": "Taipei 101, Taiwan"
  },
    {
-    "name": "시비꾼 CD",
+    "name": "Funny CD",
     "level": 72,
     "hp": 7900,
     "mp": 470,
@@ -13698,7 +13698,7 @@
       "Scroll for One-Handed Sword for ATT 10%",
       "Power Elixir",
       "Mana Elixir",
-      "최신곡 CD",
+      "Latest CD",
       "Dark Crystal Ore",
       "Black Crystal Ore",
       "Staff Production Stimulator",
@@ -13719,7 +13719,7 @@
     "region": "Taipei 101, Taiwan"
  },
   {
-    "name": "CD 모음집",
+    "name": "Special Double Disc",
     "level": 72,
     "hp": 7900,
     "mp": 470,
@@ -13736,7 +13736,7 @@
       "Scroll for One-Handed Sword for ATT 10%",
       "Power Elixir",
       "Mana Elixir",
-      "최신곡 CD",
+      "Latest CD",
       "Dark Crystal Ore",
       "Black Crystal Ore",
       "Staff Production Stimulator",
